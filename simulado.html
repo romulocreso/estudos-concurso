@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado — Analista Legislativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ebdc;--paper-2:#eaddc6;--ink:#241a13;--ink-soft:#5a4a3c;
+  --oxblood:#6e1f25;--oxblood-deep:#54161b;--gold:#a9762f;--gold-bright:#c9913f;
+  --line:#cdbb9c;--green:#3f6b3a;--red:#8b2020;--shadow:rgba(54,30,14,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Archivo',sans-serif;background:radial-gradient(circle at 12% -5%,rgba(169,118,47,.14),transparent 40%),radial-gradient(circle at 95% 8%,rgba(110,31,37,.10),transparent 38%),var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+
+/* NAV */
+.sitenav{background:var(--oxblood);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
+.nav-inner{max-width:1060px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:#f6ecd8;text-decoration:none}
+.nav-brand em{color:var(--gold-bright);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,236,216,.7);text-decoration:none;padding:6px 12px;border-radius:4px;transition:all .18s}
+.nav-links a:hover,.nav-links a.active{background:rgba(246,236,216,.15);color:#f6ecd8}
+
+.wrap{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:0 22px 90px}
+
+/* START SCREEN */
+.start-screen{padding:54px 0 30px}
+.kicker{font-family:'Spline Sans Mono',monospace;font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--oxblood);font-weight:600}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,3.2rem);line-height:.98;letter-spacing:-.02em;margin:.2em 0 .15em;color:var(--ink)}
+h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
+.sub{font-size:15px;color:var(--ink-soft);max-width:54ch;margin-bottom:32px}
+.disc-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.filter-btn{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:4px;border:1.5px solid var(--line);background:rgba(255,253,247,.7);color:var(--ink-soft);cursor:pointer;transition:all .18s}
+.filter-btn.active,.filter-btn:hover{background:var(--oxblood);color:#f6ecd8;border-color:var(--oxblood)}
+.start-meta{font-size:13.5px;color:var(--ink-soft);margin-bottom:20px}
+.start-meta b{color:var(--ink)}
+.btn-primary{font-family:'Spline Sans Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:13px 28px;border-radius:5px;border:none;background:var(--oxblood);color:#f6ecd8;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px -4px var(--oxblood-deep)}
+.btn-primary:hover{background:var(--oxblood-deep);transform:translateY(-1px)}
+
+/* QUIZ SCREEN */
+.quiz-screen{padding:36px 0 30px;display:none}
+.quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px}
+.quiz-progress-text{font-family:'Spline Sans Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.06em}
+.quiz-score-badge{font-family:'Spline Sans Mono',monospace;font-size:12px;background:rgba(255,253,247,.8);border:1px solid var(--line);border-radius:4px;padding:5px 12px;color:var(--oxblood);font-weight:600}
+.quiz-bar-track{flex:1;height:6px;background:var(--paper-2);border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.quiz-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-bright));border-radius:20px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+.q-card{background:rgba(255,253,247,.75);border:1px solid var(--line);border-radius:8px;padding:26px 28px;margin-bottom:18px;box-shadow:0 4px 14px -8px var(--shadow)}
+.q-disc-tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.q-topic{font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+.q-text{font-size:15.5px;color:var(--ink);line-height:1.65;white-space:pre-wrap}
+
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.opt-btn{display:flex;align-items:flex-start;gap:13px;padding:13px 16px;border-radius:6px;border:1.5px solid var(--line);background:rgba(255,253,247,.6);cursor:pointer;text-align:left;transition:all .18s;font-size:14.5px;color:var(--ink);line-height:1.5}
+.opt-btn:hover:not(:disabled){background:rgba(169,118,47,.1);border-color:var(--gold)}
+.opt-btn .opt-letter{font-family:'Spline Sans Mono',monospace;font-size:13px;font-weight:600;color:var(--oxblood);min-width:20px;margin-top:1px}
+.opt-btn.correct{background:rgba(63,107,58,.12);border-color:var(--green);color:var(--ink)}
+.opt-btn.wrong{background:rgba(139,32,32,.1);border-color:var(--red);color:var(--ink)}
+.opt-btn.reveal{background:rgba(63,107,58,.08);border-color:var(--green)}
+.opt-btn:disabled{cursor:default}
+
+.feedback{margin-top:16px;padding:16px 20px;border-radius:6px;font-size:14px;line-height:1.6;display:none}
+.feedback.correct-fb{background:rgba(63,107,58,.12);border:1px solid var(--green)}
+.feedback.wrong-fb{background:rgba(139,32,32,.08);border:1px solid var(--red)}
+.feedback .fb-title{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:7px}
+.feedback.correct-fb .fb-title{color:var(--green)}
+.feedback.wrong-fb .fb-title{color:var(--red)}
+
+.quiz-nav{display:flex;justify-content:flex-end;margin-top:18px}
+.btn-next{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;border-radius:4px;border:none;background:var(--oxblood);color:#f6ecd8;cursor:pointer;transition:all .18s;display:none}
+.btn-next:hover{background:var(--oxblood-deep)}
+
+/* RESULTS SCREEN */
+.results-screen{padding:36px 0 30px;display:none}
+.result-big{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3rem,10vw,5.5rem);color:var(--oxblood);line-height:1;margin:8px 0 4px}
+.result-sub{font-size:15px;color:var(--ink-soft);margin-bottom:32px}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:32px}
+.result-card{background:rgba(255,253,247,.75);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.result-card .rc-label{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.result-card .rc-val{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:700;color:var(--ink)}
+.result-card .rc-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.result-card.pass .rc-val{color:var(--green)}
+.result-card.fail .rc-val{color:var(--red)}
+
+.results-review{margin-top:8px}
+.results-review h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;margin-bottom:16px}
+.review-item{margin-bottom:14px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.review-item-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(234,221,198,.4)}
+.review-item-head .ri-num{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--ink-soft)}
+.review-item-head .ri-tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;font-weight:600}
+.ri-tag.correct-tag{background:rgba(63,107,58,.18);color:var(--green)}
+.ri-tag.wrong-tag{background:rgba(139,32,32,.12);color:var(--red)}
+.review-item-body{padding:12px 14px;font-size:13.5px;color:var(--ink-soft)}
+.review-item-body .ri-q{color:var(--ink);margin-bottom:6px;font-size:14px}
+.review-item-body .ri-ans{margin-bottom:4px}
+.review-item-body .ri-exp{font-style:italic;font-size:13px;border-left:2px solid var(--gold);padding-left:10px;margin-top:8px}
+
+.restart-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn-sec{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;border-radius:4px;border:1.5px solid var(--oxblood);background:transparent;color:var(--oxblood);cursor:pointer;transition:all .18s}
+.btn-sec:hover{background:var(--oxblood);color:#f6ecd8}
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Analista <em>Legislativo</em></a>
+    <div class="nav-links">
+      <a href="index.html">Painel</a>
+      <a href="material.html">Material</a>
+      <a href="simulado.html" class="active">Simulado</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- START SCREEN -->
+  <div class="start-screen" id="startScreen">
+    <div class="kicker">Câmara Municipal de Santana de Cataguases · Edital 01/2026</div>
+    <h1>Simulado <em>Objetiva</em></h1>
+    <p class="sub">Banco de 50 questões no estilo Auctor Consultoria. Filtre por disciplina ou faça o simulado completo.</p>
+    <div class="disc-filters">
+      <button class="filter-btn active" data-disc="all">Todas as disciplinas</button>
+      <button class="filter-btn" data-disc="port">Português</button>
+      <button class="filter-btn" data-disc="cg">Conhecimentos Gerais</button>
+      <button class="filter-btn" data-disc="ce">Conhecimentos Específicos</button>
+    </div>
+    <p class="start-meta" id="startMeta">Serão exibidas <b>50 questões</b> em ordem aleatória.</p>
+    <button class="btn-primary" id="startBtn">Iniciar simulado</button>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="quiz-screen" id="quizScreen">
+    <div class="quiz-header">
+      <span class="quiz-progress-text" id="progressText">Questão 1 de 50</span>
+      <div class="quiz-bar-track"><div class="quiz-bar-fill" id="progressBar"></div></div>
+      <span class="quiz-score-badge" id="scoreBadge">0 / 0</span>
+    </div>
+    <div class="q-card">
+      <div class="q-disc-tag" id="qDisc"></div>
+      <div class="q-topic" id="qTopic"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="opts" id="opts"></div>
+      <div class="feedback" id="feedback">
+        <div class="fb-title" id="fbTitle"></div>
+        <div id="fbText"></div>
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn-next" id="nextBtn">Próxima questão →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="results-screen" id="resultsScreen">
+    <div class="kicker">Simulado encerrado</div>
+    <div class="result-big" id="rScore">0%</div>
+    <p class="result-sub" id="rSubtitle"></p>
+    <div class="result-grid" id="resultGrid"></div>
+    <div class="results-review">
+      <h3>Revisão das questões</h3>
+      <div id="reviewList"></div>
+    </div>
+    <div class="restart-row">
+      <button class="btn-primary" id="restartBtn">Refazer simulado</button>
+      <button class="btn-sec" id="backBtn">Escolher filtro</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DISC_LABELS = {port:"Português", cg:"Conhecimentos Gerais", ce:"Conhecimentos Específicos"};
+const LETTERS = ["A","B","C","D"];
+
+const ALL_QUESTIONS = [
+/* ==================== PORTUGUÊS ==================== */
+{id:1,disc:"port",topic:"Interpretação de texto",
+q:`Leia o trecho: "A Câmara Municipal, como casa legislativa, exerce função primordial na democracia representativa: ela traduz a vontade popular em normas jurídicas, fiscaliza o Executivo e aprova o orçamento que define as prioridades da cidade."
+
+Com base exclusivamente no texto, a Câmara Municipal:`,
+opts:["É responsável pela execução das políticas públicas municipais.","Exerce apenas função fiscalizatória sobre o Poder Executivo.","Tem entre suas atribuições converter a vontade dos cidadãos em leis.","Aprova o orçamento municipal de forma independente do Poder Executivo."],
+ans:2,exp:"O texto afirma que a Câmara \"traduz a vontade popular em normas jurídicas\" — ou seja, converte a vontade dos cidadãos em leis (C). As demais alternativas distorcem ou extrapolam o que o trecho diz."},
+
+{id:2,disc:"port",topic:"Ortografia",
+q:`Assinale a alternativa em que TODAS as palavras estão corretamente grafadas:`,
+opts:["assessoria, burocracia, privilégio, comissão","asseçoria, burocracia, privilégio, comissão","assessoria, burocraçia, privilégio, comissão","assessoria, burocracia, privelério, comissão"],
+ans:0,exp:"\"Assessoria\" (ss), \"burocracia\" (c, não ç), \"privilégio\" (é), \"comissão\" (ss). Todas corretas em A."},
+
+{id:3,disc:"port",topic:"Acentuação gráfica",
+q:`Assinale a alternativa em que há ERRO de acentuação:`,
+opts:["O analista leu vários relatórios.","O secretário entregou o parecer ao vereador.","A reunião foi adiada para a próxima semana.","Os servidores devem agir com etica e responsabilidade."],
+ans:3,exp:"\"Ética\" é proparoxítona (é-ti-ca) e deve ser acentuada. Todas as proparoxítonas são obrigatoriamente acentuadas."},
+
+{id:4,disc:"port",topic:"Concordância verbal",
+q:`Assinale a alternativa em que há ERRO de concordância verbal:`,
+opts:["Fazem três anos que o servidor foi admitido.","Os analistas e o diretor participaram da reunião.","É necessário que todos cumpram o regulamento interno.","A comissão aprovou todos os projetos de lei."],
+ans:0,exp:"\"Fazer\" indicando tempo decorrido é verbo impessoal e fica sempre no singular: \"Faz três anos\". Usar \"fazem\" é erro clássico em provas."},
+
+{id:5,disc:"port",topic:"Concordância nominal",
+q:`Assinale a alternativa com concordância nominal CORRETA:`,
+opts:["Os servidores ficaram satisfeitos e animadas com a decisão.","As servidoras ficaram satisfeitas e animadas com a decisão.","As servidoras ficaram satisfeito e animadas com a decisão.","Os servidores ficaram satisfeito e animada com a decisão."],
+ans:1,exp:"Com sujeito feminino plural (\"as servidoras\"), os predicativos devem estar no feminino plural: \"satisfeitas e animadas\"."},
+
+{id:6,disc:"port",topic:"Regência verbal",
+q:`Assinale a alternativa em que a regência verbal está CORRETA:`,
+opts:["O vereador aspirava o cargo de presidente da Câmara.","O servidor obedeceu as normas do regimento interno.","O diretor visava ao cumprimento das metas anuais.","O secretário assistiu o vereador durante toda a sessão."],
+ans:2,exp:"\"Visar\" no sentido de \"ter como objetivo\" é transitivo indireto (visar a). As demais: \"aspirar\" a (não diretamente); \"obedecer\" a; \"assistir\" a (presenciar). Apenas C está correto."},
+
+{id:7,disc:"port",topic:"Uso da crase",
+q:`Em qual alternativa o emprego da crase está INCORRETO?`,
+opts:["Entregou o relatório à Câmara Municipal.","O servidor assistiu à sessão de votação.","Ele se referiu à ela durante o pronunciamento.","As sessões ocorrem às terças-feiras."],
+ans:2,exp:"Pronomes pessoais do caso reto (ele, ela, eu, tu, nós, vós) não admitem crase antes deles. O correto é \"a ela\", sem acento grave."},
+
+{id:8,disc:"port",topic:"Colocação pronominal",
+q:`Assinale a alternativa com ERRO de colocação pronominal segundo a norma culta escrita:`,
+opts:["Entregou-me os documentos no prazo estipulado.","Não nos informaram sobre a mudança no horário.","Me disseram que a reunião foi adiada.","Jamais lhe direi o que aconteceu naquela sessão."],
+ans:2,exp:"Em início de oração não se usa pronome oblíquo átono. O correto seria \"Disseram-me\" (ênclise) ou, com palavra atrativa antes: \"Não me disseram\"."},
+
+{id:9,disc:"port",topic:"Pontuação",
+q:`Assinale a alternativa em que o uso da vírgula está CORRETO:`,
+opts:["O vereador, disse que votaria contra o projeto.","As sessões ordinárias, ocorrem toda terça-feira.","O projeto, aprovado por unanimidade, seguiu para promulgação.","Os vereadores votaram, e o presidente da Câmara, assinou o projeto."],
+ans:2,exp:"Em C, a oração adjetiva explicativa \"aprovado por unanimidade\" está corretamente isolada por vírgulas. Em A e B, há vírgula separando sujeito do predicado (erro). Em D, há vírgula entre sujeito composto e verbo."},
+
+{id:10,disc:"port",topic:"Figuras de linguagem",
+q:`"O orçamento municipal é o esqueleto que sustenta o corpo das políticas públicas."
+
+A figura de linguagem empregada no trecho é:`,
+opts:["Metonímia","Antítese","Metáfora","Hipérbole"],
+ans:2,exp:"Metáfora é a comparação implícita sem conectivo comparativo. O orçamento é comparado a um esqueleto e as políticas públicas a um corpo, de forma implícita — característica da metáfora."},
+
+{id:11,disc:"port",topic:"Semântica",
+q:`As palavras \"legislar\" e \"executar\", no contexto da administração pública, são:`,
+opts:["Sinônimas, pois ambas indicam ação governamental.","Antônimas, pois representam funções opostas na tripartição de poderes.","Parônimas, pois têm origem etimológica semelhante.","Homônimas, pois possuem grafias parecidas."],
+ans:1,exp:"\"Legislar\" (criar leis, função do Legislativo) e \"executar\" (implementar políticas, função do Executivo) representam funções distintas e opostas na tripartição dos poderes. São antônimas nesse contexto."},
+
+{id:12,disc:"port",topic:"Morfologia — classes de palavras",
+q:`"O leal servidor público sempre cumpre seus deveres com diligência."
+
+Nessa oração, a palavra \"diligência\" é:`,
+opts:["Adjetivo","Advérbio","Substantivo","Verbo"],
+ans:2,exp:"\"Diligência\" é substantivo feminino abstrato, aqui funcionando como objeto da preposição \"com\". O adjetivo da oração é \"leal\" e o advérbio é \"sempre\"."},
+
+{id:13,disc:"port",topic:"Sintaxe — análise",
+q:`"Os vereadores aprovaram o projeto de lei."
+
+Na oração acima, \"o projeto de lei\" exerce a função de:`,
+opts:["Sujeito","Objeto direto","Objeto indireto","Complemento nominal"],
+ans:1,exp:"\"Os vereadores\" é o sujeito; \"aprovaram\" é verbo transitivo direto; \"o projeto de lei\" é objeto direto (completa o sentido do verbo sem preposição)."},
+
+{id:14,disc:"port",topic:"Coesão e coerência",
+q:`"O vereador apresentou o projeto. Entretanto, o projeto foi aprovado por unanimidade."
+
+O uso do conectivo \"entretanto\" está:`,
+opts:["Correto, pois indica adição de uma ideia à anterior.","Correto, pois indica conclusão lógica.","Incorreto, pois indica oposição onde não há contraste real entre as orações.","Incorreto, pois deveria ser substituído por \"portanto\"."],
+ans:2,exp:"\"Entretanto\" é adversativo (indica contraste/oposição). No trecho, as duas orações não se opõem: o projeto foi apresentado e, em seguida, aprovado — relação de sequência, não de contraste."},
+
+{id:15,disc:"port",topic:"Interpretação de texto",
+q:`"A transparência é pressuposto indispensável da boa gestão pública, pois sem acesso à informação, o cidadão não pode exercer seu papel de fiscal da administração."
+
+Segundo o texto, a relação entre transparência e controle social é:`,
+opts:["A transparência é consequência do controle exercido pelos cidadãos.","O controle social pelos cidadãos é viabilizado pela transparência.","A transparência dispensa o controle social, tornando-o desnecessário.","O controle social prescinde da transparência para ser efetivo."],
+ans:1,exp:"O texto afirma que \"sem acesso à informação, o cidadão não pode exercer seu papel de fiscal\" — a transparência é, portanto, condição (pressuposto) para que o cidadão exerça o controle social."},
+
+/* ==================== CONHECIMENTOS GERAIS ==================== */
+{id:16,disc:"cg",topic:"Santana de Cataguases — localização",
+q:`Santana de Cataguases é um município de Minas Gerais pertencente à mesorregião:`,
+opts:["Vale do Rio Doce","Zona da Mata","Sul e Sudoeste de Minas","Triângulo Mineiro"],
+ans:1,exp:"Santana de Cataguases integra a mesorregião da Zona da Mata Mineira, que compreende municípios do leste de Minas Gerais, próximos à fronteira com os estados do Rio de Janeiro e Espírito Santo."},
+
+{id:17,disc:"cg",topic:"Câmara Municipal — função",
+q:`Qual é a principal função legislativa da Câmara Municipal?`,
+opts:["Executar as leis municipais aprovadas pelo prefeito.","Elaborar, discutir e votar leis de interesse local.","Fiscalizar os tribunais de contas em âmbito municipal.","Nomear e exonerar os secretários municipais."],
+ans:1,exp:"A Câmara Municipal exerce a função legislativa: elaborar, discutir e votar leis de interesse local. A execução das leis é função do Executivo (prefeitura); a nomeação de secretários é prerrogativa do prefeito."},
+
+{id:18,disc:"cg",topic:"Minas Gerais — história",
+q:`A Inconfidência Mineira (1789), movimento que visava à independência do Brasil, teve como epicentro a cidade de:`,
+opts:["Belo Horizonte","Mariana","Vila Rica (atual Ouro Preto)","São João del-Rei"],
+ans:2,exp:"A Inconfidência Mineira eclodiu em Vila Rica, atual Ouro Preto, que era a capital da capitania à época. Tiradentes (Joaquim José da Silva Xavier) é o principal mártir do movimento."},
+
+{id:19,disc:"cg",topic:"Organização político-administrativa",
+q:`De acordo com a Constituição Federal de 1988, a República Federativa do Brasil é formada por:`,
+opts:["União, estados e municípios","União, estados e Distrito Federal","União, estados, Distrito Federal e municípios","União, estados, territórios e municípios"],
+ans:2,exp:"O art. 1º da CF/88 define que a República Federativa do Brasil é formada pela União, estados, Distrito Federal e municípios, todos autônomos nos termos da Constituição."},
+
+{id:20,disc:"cg",topic:"Atualidades — meio ambiente",
+q:`A COP30, Conferência das Nações Unidas sobre Mudança do Clima de 2025, foi realizada na cidade brasileira de:`,
+opts:["São Paulo","Brasília","Belém","Manaus"],
+ans:2,exp:"A COP30 foi realizada em Belém (PA) em novembro de 2025. A escolha da cidade amazônica foi simbólica, reforçando a importância da Amazônia para o debate climático global."},
+
+{id:21,disc:"cg",topic:"Atualidades — tecnologia",
+q:`Os Objetivos de Desenvolvimento Sustentável (ODS), adotados pela ONU pela Agenda 2030, são compostos por:`,
+opts:["8 objetivos","15 objetivos","17 objetivos","21 objetivos"],
+ans:2,exp:"A Agenda 2030 da ONU prevê 17 Objetivos de Desenvolvimento Sustentável (ODS) e 169 metas, abrangendo temas como erradicação da pobreza, educação, saúde, igualdade de gênero e ação climática."},
+
+{id:22,disc:"cg",topic:"Minas Gerais — cultura",
+q:`O movimento literário que floresceu em Minas Gerais no século XVIII, tendo Tomás Antônio Gonzaga como principal expoente, é denominado:`,
+opts:["Romantismo","Arcadismo (Neoclassicismo)","Barroco","Modernismo"],
+ans:1,exp:"Tomás Antônio Gonzaga foi poeta do Arcadismo (Neoclassicismo) brasileiro, autor de \"Marília de Dirceu\". O movimento surgiu como reação ao Barroco, valorizando razão, natureza e modelos greco-latinos."},
+
+{id:23,disc:"cg",topic:"CF/88 — princípios",
+q:`O princípio da impessoalidade que rege a administração pública (art. 37, CF/88) tem como objetivo central:`,
+opts:["Assegurar que os atos administrativos sejam praticados sempre pelo mesmo servidor.","Vedar o uso da máquina pública para promoção pessoal ou benefício de grupos.","Garantir que todos os servidores recebam a mesma remuneração.","Exigir que todos os atos administrativos sejam publicados no Diário Oficial."],
+ans:1,exp:"A impessoalidade determina que a Administração deve agir voltada ao interesse público, sem discriminação ou favorecimento pessoal. Veda a promoção pessoal do agente por meio de atos, programas e obras oficiais."},
+
+{id:24,disc:"cg",topic:"Atualidades — saúde",
+q:`São princípios doutrinários do Sistema Único de Saúde (SUS), EXCETO:`,
+opts:["Universalidade de acesso","Integralidade da assistência","Equidade","Privatização dos serviços essenciais"],
+ans:3,exp:"Os princípios doutrinários do SUS são: universalidade (acesso para todos), integralidade (atendimento completo) e equidade (tratar desiguais de forma desigual, priorizando quem mais necessita). A privatização é oposta aos princípios do SUS."},
+
+{id:25,disc:"cg",topic:"CF/88 — processo legislativo",
+q:`A aprovação de Emenda à Constituição Federal exige, em cada Casa do Congresso Nacional:`,
+opts:["Maioria simples em votação única","Maioria absoluta em dois turnos de votação","Maioria de três quintos em dois turnos de votação","Unanimidade em sessão conjunta do Congresso"],
+ans:2,exp:"Conforme o art. 60, §2º, da CF/88, a PEC deve ser aprovada em dois turnos em cada Casa, com três quintos dos votos dos respectivos membros (não apenas dos presentes)."},
+
+{id:26,disc:"cg",topic:"Atualidades — energia",
+q:`O Brasil ocupa posição de destaque mundial em energia renovável. O principal tipo de energia elétrica gerada no país é proveniente de:`,
+opts:["Energia eólica","Energia solar","Energia hidrelétrica","Energia nuclear"],
+ans:2,exp:"A matriz elétrica brasileira é majoritariamente renovável, com a energia hidrelétrica respondendo por mais de 60% da geração. O Brasil possui uma das matrizes mais limpas do mundo."},
+
+{id:27,disc:"cg",topic:"Atualidades — educação",
+q:`O Índice de Desenvolvimento da Educação Básica (IDEB) é calculado com base em:`,
+opts:["Número de matrículas e taxa de analfabetismo","Taxa de aprovação dos alunos e desempenho nas avaliações do SAEB","Investimento per capita em educação e número de professores por aluno","Taxa de formação no ensino superior e acesso à internet"],
+ans:1,exp:"O IDEB (criado em 2007 pelo INEP/MEC) combina dois componentes: a taxa de aprovação (fluxo escolar) e o desempenho dos alunos no SAEB (Sistema de Avaliação da Educação Básica)."},
+
+{id:28,disc:"cg",topic:"Atualidades — finanças públicas",
+q:`A Lei Complementar nº 200/2023, que instituiu o novo arcabouço fiscal, substituiu qual instrumento anterior de controle de gastos?`,
+opts:["Lei de Responsabilidade Fiscal (LC 101/2000)","Emenda Constitucional do Teto de Gastos (EC 95/2016)","Lei de Diretrizes Orçamentárias (LDO)","Plano Plurianual (PPA)"],
+ans:1,exp:"A EC 95/2016 (\"teto de gastos\") limitava o crescimento das despesas primárias federais à variação do IPCA por 20 anos. O novo arcabouço fiscal (LC 200/2023) substituiu esse mecanismo por regras mais flexíveis, mas ainda com tetos de crescimento de despesas."},
+
+{id:29,disc:"cg",topic:"Câmara Municipal — composição",
+q:`A presidência da Câmara Municipal é exercida por:`,
+opts:["O prefeito municipal, como chefe do Executivo local.","Um vereador eleito pelos próprios vereadores.","Um servidor efetivo indicado pelo Tribunal de Contas do Estado.","Um juiz indicado pelo Tribunal de Justiça de Minas Gerais."],
+ans:1,exp:"A Câmara Municipal é presidida por um vereador eleito pelos próprios pares para exercer a mesa diretora. O prefeito é chefe do Poder Executivo municipal e não tem função na presidência do Legislativo."},
+
+{id:30,disc:"cg",topic:"Atualidades — legislativo",
+q:`Na estrutura constitucional brasileira, é competência EXCLUSIVA do município:`,
+opts:["Legislar sobre direito civil e comercial.","Instituir e arrecadar tributos de sua competência e aplicar suas rendas.","Legislar sobre direito do trabalho.","Organizar e manter a polícia civil e militar."],
+ans:1,exp:"Conforme a CF/88, é competência exclusiva dos municípios, entre outras: legislar sobre assuntos de interesse local, suplementar legislação federal/estadual, e instituir e arrecadar os tributos de sua competência (IPTU, ISS, ITBI)."},
+
+/* ==================== CONHECIMENTOS ESPECÍFICOS ==================== */
+{id:31,disc:"ce",topic:"Princípios administrativos — legalidade",
+q:`O princípio da legalidade, para a Administração Pública, significa que:`,
+opts:["O administrador pode fazer tudo que a lei não proibir expressamente.","O administrador só pode agir quando houver expressa autorização legal.","A legalidade aplica-se apenas ao Poder Executivo federal.","Os atos administrativos ilegais geram apenas responsabilidade política."],
+ans:1,exp:"Para o particular, legalidade = pode fazer o que a lei não proíbe. Para a Administração, legalidade = só pode agir com prévia autorização legal. Esse sentido mais restrito é fundamental em provas."},
+
+{id:32,disc:"ce",topic:"Princípios administrativos — LIMPE",
+q:`O princípio da eficiência foi inserido no caput do art. 37 da CF/88 por meio da:`,
+opts:["Emenda Constitucional nº 19/1998 (Reforma Administrativa)","Lei 8.112/1990 (Estatuto dos Servidores Federais)","Emenda Constitucional nº 45/2004 (Reforma do Judiciário)","Lei Complementar nº 101/2000 (Lei de Responsabilidade Fiscal)"],
+ans:0,exp:"A EC 19/1998 (Reforma Administrativa) acrescentou o princípio da eficiência ao art. 37, completando o acrônimo LIMPE: Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência."},
+
+{id:33,disc:"ce",topic:"Atos administrativos — atributos",
+q:`São atributos (características) dos atos administrativos, EXCETO:`,
+opts:["Presunção de legitimidade e veracidade","Imperatividade","Autoexecutoriedade","Irrevogabilidade"],
+ans:3,exp:"Os atributos clássicos são: presunção de legitimidade, imperatividade (impõe obrigações) e autoexecutoriedade (execução direta). A irrevogabilidade NÃO é atributo — a Administração pode revogar atos discricionários por conveniência e oportunidade."},
+
+{id:34,disc:"ce",topic:"Poderes administrativos — polícia",
+q:`O poder que permite à Administração aplicar sanções (multas, interdições) sem autorização judicial prévia é o poder:`,
+opts:["Discricionário","Hierárquico","De polícia","Regulamentar"],
+ans:2,exp:"O poder de polícia é a faculdade da Administração de condicionar e restringir atividades particulares em benefício da coletividade. Manifesta-se pela autoexecutoriedade: aplicação direta de sanções sem necessidade do Judiciário."},
+
+{id:35,disc:"ce",topic:"Atos administrativos — vinculado/discricionário",
+q:`O ato administrativo que pode ser revogado pela própria Administração por razões de conveniência e oportunidade é o ato:`,
+opts:["Vinculado","Discricionário","Nulo","Complexo"],
+ans:1,exp:"Atos discricionários conferem ao administrador margem de liberdade (juízo de mérito). Por conterem esse elemento de escolha, são passíveis de revogação pela Administração a qualquer tempo. Atos vinculados, em regra, não admitem revogação."},
+
+{id:36,disc:"ce",topic:"Administração indireta",
+q:`São entidades da Administração Indireta, conforme o Decreto-Lei 200/1967:`,
+opts:["Ministérios, secretarias e departamentos","Autarquias, fundações públicas, empresas públicas e sociedades de economia mista","Câmaras legislativas, tribunais e ministério público","Conselhos de fiscalização profissional e organizações sociais"],
+ans:1,exp:"A Administração Indireta é composta por: autarquias (ex.: INSS), fundações públicas (ex.: IBGE), empresas públicas (ex.: Correios) e sociedades de economia mista (ex.: Petrobras). Todos possuem personalidade jurídica própria."},
+
+{id:37,disc:"ce",topic:"Licitações — Lei 14.133/2021",
+q:`Com a Nova Lei de Licitações (Lei 14.133/2021), qual modalidade prevista na Lei 8.666/1993 foi EXTINTA?`,
+opts:["Pregão","Concorrência","Tomada de preços","Concurso"],
+ans:2,exp:"A Lei 14.133/2021 manteve concorrência, pregão, concurso e leilão, e criou o diálogo competitivo. A tomada de preços (assim como o convite) foi extinta pela nova lei."},
+
+{id:38,disc:"ce",topic:"Licitações — dispensa",
+q:`Na Lei 14.133/2021, é dispensável a licitação para contratação de obras e serviços de engenharia com valor de até:`,
+opts:["R$ 15.000,00","R$ 50.000,00","R$ 100.000,00","R$ 200.000,00"],
+ans:2,exp:"Conforme o art. 75, I, da Lei 14.133/2021, é dispensável a licitação para obras e serviços de engenharia (e manutenção de veículos) cujo valor não ultrapasse R$ 100.000,00. Para outros bens e serviços, o limite é R$ 50.000,00 (art. 75, II)."},
+
+{id:39,disc:"ce",topic:"Contratos administrativos — cláusulas exorbitantes",
+q:`A cláusula exorbitante que permite à Administração alterar unilateralmente o objeto do contrato para melhor adequá-lo ao interesse público é denominada:`,
+opts:["Cláusula de rescisão unilateral","Cláusula de aplicação de penalidades","Cláusula de modificação unilateral","Cláusula de encampação"],
+ans:2,exp:"As cláusulas exorbitantes são prerrogativas da AP não usuais no direito privado. A modificação unilateral permite alterar cláusulas para adequar o contrato ao interesse público, respeitado o limite legal (até 25% do valor original para acréscimos/supressões)."},
+
+{id:40,disc:"ce",topic:"Contratos — rescisão",
+q:`O contrato administrativo pode ser rescindido unilateralmente pela Administração. Assinale a hipótese que NÃO autoriza essa rescisão:`,
+opts:["Inexecução total do contrato pelo contratado","Razões de interesse público devidamente justificadas","Inadimplemento de obrigações pelo contratado","Interesse exclusivo do contratado em encerrar o vínculo"],
+ans:3,exp:"A rescisão unilateral pela Administração só ocorre por ato do poder público (inexecução pelo contratado ou interesse público). Se o interesse é exclusivo do contratado, ele deve buscar via judicial ou negociar amigavelmente — não cabe à Administração rescindir unilateralmente nessa hipótese."},
+
+{id:41,disc:"ce",topic:"Gestão de RH — recrutamento",
+q:`O recrutamento INTERNO, como forma de preenchimento de cargo em uma organização, apresenta como vantagem:`,
+opts:["Introdução de novas ideias e experiências externas à organização.","Renovação da cultura organizacional com perfis distintos.","Motivação dos servidores e aproveitamento do potencial interno.","Ampliação da diversidade de perfis na organização."],
+ans:2,exp:"O recrutamento interno valoriza e motiva os servidores existentes, aproveita o conhecimento que já têm da organização e custa menos. As demais alternativas (A, B, D) descrevem vantagens do recrutamento externo."},
+
+{id:42,disc:"ce",topic:"Gestão de RH — seleção",
+q:`A entrevista de seleção ESTRUTURADA, comparada à não estruturada, caracteriza-se por:`,
+opts:["Maior informalidade e liberdade na condução.","Perguntas padronizadas e previamente definidas para todos os candidatos.","Ausência de critérios objetivos de avaliação.","Adaptação total das perguntas ao perfil individual de cada candidato."],
+ans:1,exp:"Na entrevista estruturada, todas as perguntas são definidas previamente e aplicadas igualmente a todos os candidatos, garantindo objetividade, comparabilidade e redução do viés do entrevistador."},
+
+{id:43,disc:"ce",topic:"Gestão de RH — treinamento",
+q:`O Levantamento das Necessidades de Treinamento (LNT) tem como objetivo principal:`,
+opts:["Definir o orçamento disponível para capacitação.","Identificar as lacunas de conhecimento, habilidades e atitudes dos servidores.","Estabelecer o cronograma de férias dos servidores.","Avaliar o desempenho dos gestores responsáveis pelas equipes."],
+ans:1,exp:"O LNT é a etapa diagnóstica do ciclo de treinamento: identifica a diferença entre as competências que os servidores têm e as que o cargo/função exige. A partir daí, planeja-se o treinamento mais adequado."},
+
+{id:44,disc:"ce",topic:"Gestão de RH — avaliação de desempenho",
+q:`A avaliação de desempenho pelo método 360 graus distingue-se dos métodos tradicionais porque:`,
+opts:["É realizada exclusivamente pelo superior hierárquico imediato.","Utiliza apenas critérios quantitativos de produção.","Envolve feedback de múltiplas fontes: superiores, pares, subordinados e autoavaliação.","Aplica-se somente a cargos de chefia e gestão."],
+ans:2,exp:"A avaliação 360º coleta feedback de múltiplas fontes — o próprio avaliado (autoavaliação), superiores, colegas e subordinados — fornecendo uma visão mais completa e fidedigna do desempenho."},
+
+{id:45,disc:"ce",topic:"Orçamento público — princípios",
+q:`O princípio orçamentário que determina que a LOA deve conter TODAS as receitas e despesas do governo, sem fundos externos ao orçamento, é o princípio da:`,
+opts:["Anualidade","Publicidade","Universalidade","Exclusividade"],
+ans:2,exp:"A universalidade determina que todas as receitas e despesas públicas devem estar incluídas na LOA. Não pode haver fundo ou conta paralela fora do orçamento. (Exclusividade proíbe matéria estranha à previsão de receitas e fixação de despesas.)"},
+
+{id:46,disc:"ce",topic:"PPA / LDO / LOA",
+q:`Na hierarquia orçamentária, a Lei de Diretrizes Orçamentárias (LDO) tem como principal função:`,
+opts:["Detalhar o orçamento de um exercício financeiro.","Estabelecer o planejamento de médio prazo por 4 anos.","Orientar a elaboração da LOA, definindo metas e prioridades fiscais.","Regulamentar os contratos e licitações do poder público."],
+ans:2,exp:"A LDO (art. 165, §2º, CF/88) orienta a elaboração da LOA, estabelecendo metas e prioridades, diretrizes para a política fiscal e condições para transferências. O PPA planeja os 4 anos; a LOA detalha o exercício anual."},
+
+{id:47,disc:"ce",topic:"Lei de Responsabilidade Fiscal",
+q:`A Lei de Responsabilidade Fiscal (LC 101/2000) estabelece que os municípios não podem comprometer mais de ___% da Receita Corrente Líquida com gastos de pessoal:`,
+opts:["50%","54%","60%","70%"],
+ans:2,exp:"O art. 19 da LRF fixa que os municípios não podem gastar mais de 60% da RCL com pessoal (54% para o Executivo municipal + 6% para a Câmara Municipal). É um dos limites mais cobrados em provas."},
+
+{id:48,disc:"ce",topic:"Receita orçamentária",
+q:`As receitas provenientes da cobrança de impostos, taxas e contribuições são classificadas como:`,
+opts:["Receitas de capital","Receitas correntes tributárias","Receitas extraorçamentárias","Receitas de operações de crédito"],
+ans:1,exp:"Receitas tributárias (impostos, taxas, contribuições de melhoria) são subclassificação das receitas correntes — aumentam o patrimônio líquido e não geram obrigação de devolução. Receitas de capital envolvem operações de crédito e alienação de bens."},
+
+{id:49,disc:"ce",topic:"Gestão estratégica",
+q:`O planejamento estratégico de uma organização pública resulta na definição de:`,
+opts:["Procedimentos operacionais padrão para cada setor.","Missão, visão, valores e objetivos estratégicos.","Horários de trabalho e escalas de plantão dos servidores.","Tabelas de vencimentos e planos de cargos e salários."],
+ans:1,exp:"O planejamento estratégico define: missão (razão de ser), visão (onde se quer chegar), valores (princípios) e objetivos estratégicos de longo prazo. Serve de base para o planejamento tático (setorial) e operacional (procedimentos)."},
+
+{id:50,disc:"ce",topic:"Bens públicos",
+q:`São bens de USO ESPECIAL, integrantes do patrimônio público:`,
+opts:["Praças, ruas e rios navegáveis","Prédios de repartições públicas, escolas e hospitais do governo","Terrenos de marinha e terras devolutas","Ilhas fluviais e plataforma continental"],
+ans:1,exp:"Bens de uso especial são destinados ao uso exclusivo da Administração: edifícios de repartições públicas, escolas, hospitais e quartéis. Bens de uso comum (praças, rios) são acessíveis a todos. Bens dominicais (terras devolutas) integram o patrimônio disponível do Estado."}
+];
+
+/* ==================== QUIZ LOGIC ==================== */
+let filtered = [], current = 0, score = 0, answered = [];
+let activeDisc = "all";
+
+const DISC_COLORS = {
+  port:"Português · Língua Portuguesa",
+  cg:"Conhecimentos Gerais",
+  ce:"Conhecimentos Específicos"
+};
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}
+  return arr;
+}
+
+function updateStartMeta(){
+  const n = activeDisc === "all" ? ALL_QUESTIONS.length : ALL_QUESTIONS.filter(q=>q.disc===activeDisc).length;
+  const label = activeDisc === "all" ? "50 questões" : `${n} questão${n!==1?"s":""}`;
+  document.getElementById("startMeta").innerHTML = `Serão exibidas <b>${label}</b> em ordem aleatória.`;
+}
+
+document.querySelectorAll(".filter-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    activeDisc = btn.dataset.disc;
+    updateStartMeta();
+  });
+});
+
+document.getElementById("startBtn").addEventListener("click", startQuiz);
+document.getElementById("nextBtn").addEventListener("click", nextQ);
+document.getElementById("restartBtn").addEventListener("click", ()=>{ restartQuiz(); });
+document.getElementById("backBtn").addEventListener("click", ()=>{
+  document.getElementById("resultsScreen").style.display="none";
+  document.getElementById("startScreen").style.display="block";
+});
+
+function startQuiz(){
+  const pool = activeDisc === "all" ? [...ALL_QUESTIONS] : ALL_QUESTIONS.filter(q=>q.disc===activeDisc);
+  filtered = shuffle(pool);
+  current = 0; score = 0; answered = new Array(filtered.length).fill(null);
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("quizScreen").style.display="block";
+  renderQ();
+}
+
+function restartQuiz(){
+  document.getElementById("resultsScreen").style.display="none";
+  startQuiz();
+}
+
+function renderQ(){
+  const q = filtered[current];
+  const n = filtered.length;
+  document.getElementById("progressText").textContent = `Questão ${current+1} de ${n}`;
+  document.getElementById("progressBar").style.width = ((current/n)*100)+"%";
+  document.getElementById("scoreBadge").textContent = `${score} / ${current}`;
+  document.getElementById("qDisc").textContent = DISC_LABELS[q.disc];
+  document.getElementById("qTopic").textContent = q.topic;
+  document.getElementById("qText").textContent = q.q;
+  const fb = document.getElementById("feedback");
+  fb.style.display="none"; fb.className="feedback";
+  document.getElementById("nextBtn").style.display="none";
+  const opts = document.getElementById("opts");
+  opts.innerHTML="";
+  q.opts.forEach((opt,i)=>{
+    const btn = document.createElement("button");
+    btn.className="opt-btn";
+    btn.innerHTML=`<span class="opt-letter">${LETTERS[i]}</span><span>${opt}</span>`;
+    btn.addEventListener("click",()=>selectAnswer(i));
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(chosen){
+  const q = filtered[current];
+  answered[current] = chosen;
+  const correct = q.ans;
+  if(chosen===correct) score++;
+  document.querySelectorAll(".opt-btn").forEach((btn,i)=>{
+    btn.disabled=true;
+    if(i===correct) btn.classList.add(chosen===correct?"correct":"reveal");
+    if(i===chosen && chosen!==correct) btn.classList.add("wrong");
+  });
+  const fb = document.getElementById("feedback");
+  fb.style.display="block";
+  if(chosen===correct){
+    fb.classList.add("correct-fb");
+    document.getElementById("fbTitle").textContent="Correto!";
+  } else {
+    fb.classList.add("wrong-fb");
+    document.getElementById("fbTitle").textContent=`Incorreto — resposta correta: ${LETTERS[correct]}`;
+  }
+  document.getElementById("fbText").textContent=q.exp;
+  document.getElementById("scoreBadge").textContent=`${score} / ${current+1}`;
+  const nxt = document.getElementById("nextBtn");
+  nxt.style.display="block";
+  nxt.textContent = current+1 < filtered.length ? "Próxima questão →" : "Ver resultado →";
+}
+
+function nextQ(){
+  current++;
+  if(current >= filtered.length){ showResults(); return; }
+  renderQ();
+}
+
+function showResults(){
+  document.getElementById("quizScreen").style.display="none";
+  document.getElementById("resultsScreen").style.display="block";
+  const n = filtered.length;
+  const pct = Math.round(score/n*100);
+  document.getElementById("rScore").textContent = pct+"%";
+  document.getElementById("rSubtitle").textContent = `${score} de ${n} questões corretas · ${pct>=60?"Aprovado no critério geral (60%)":"Abaixo do mínimo de 60%"}`;
+
+  // Per-discipline breakdown
+  const byDisc = {};
+  filtered.forEach((q,i)=>{
+    if(!byDisc[q.disc]) byDisc[q.disc]={total:0,correct:0};
+    byDisc[q.disc].total++;
+    if(answered[i]===q.ans) byDisc[q.disc].correct++;
+  });
+  const grid = document.getElementById("resultGrid");
+  grid.innerHTML="";
+  // Overall
+  const overall = document.createElement("div");
+  const passClass = pct>=60?"pass":"fail";
+  overall.className=`result-card ${passClass}`;
+  overall.innerHTML=`<div class="rc-label">Geral</div><div class="rc-val">${pct}%</div><div class="rc-sub">${score}/${n} questões</div>`;
+  grid.appendChild(overall);
+  Object.entries(byDisc).forEach(([disc,data])=>{
+    const dp = Math.round(data.correct/data.total*100);
+    const minPass = disc==="cg" ? 50 : 50;
+    const card = document.createElement("div");
+    card.className=`result-card ${dp>=minPass?"pass":"fail"}`;
+    card.innerHTML=`<div class="rc-label">${DISC_LABELS[disc]}</div><div class="rc-val">${dp}%</div><div class="rc-sub">${data.correct}/${data.total} questões</div>`;
+    grid.appendChild(card);
+  });
+
+  // Review
+  const reviewList = document.getElementById("reviewList");
+  reviewList.innerHTML="";
+  filtered.forEach((q,i)=>{
+    const ok = answered[i]===q.ans;
+    const item = document.createElement("div");
+    item.className="review-item";
+    item.innerHTML=`
+      <div class="review-item-head">
+        <span class="ri-num">Q${i+1}</span>
+        <span class="ri-tag ${ok?"correct-tag":"wrong-tag"}">${ok?"Correta":"Errada"}</span>
+        <span style="font-size:12px;color:var(--ink-soft);flex:1;text-align:right">${DISC_LABELS[q.disc]} · ${q.topic}</span>
+      </div>
+      <div class="review-item-body">
+        <div class="ri-q">${q.q.split('\n')[0]}</div>
+        ${!ok?`<div class="ri-ans" style="color:var(--red)">Sua resposta: ${answered[i]!==null?LETTERS[answered[i]]+" — "+q.opts[answered[i]]:"não respondida"}</div>`:""}
+        <div class="ri-ans" style="color:var(--green)">Correta: ${LETTERS[q.ans]} — ${q.opts[q.ans]}</div>
+        <div class="ri-exp">${q.exp}</div>
+      </div>`;
+    reviewList.appendChild(item);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>

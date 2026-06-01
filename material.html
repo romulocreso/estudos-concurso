@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material de Estudo — Analista Legislativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Archivo:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3ebdc;--paper-2:#eaddc6;--ink:#241a13;--ink-soft:#5a4a3c;
+  --oxblood:#6e1f25;--oxblood-deep:#54161b;--gold:#a9762f;--gold-bright:#c9913f;
+  --line:#cdbb9c;--green:#3f6b3a;--shadow:rgba(54,30,14,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Archivo',sans-serif;background:radial-gradient(circle at 12% -5%,rgba(169,118,47,.14),transparent 40%),radial-gradient(circle at 95% 8%,rgba(110,31,37,.10),transparent 38%),var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+
+/* NAV */
+.sitenav{background:var(--oxblood);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
+.nav-inner{max-width:1060px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:#f6ecd8;text-decoration:none}
+.nav-brand em{color:var(--gold-bright);font-style:italic}
+.nav-links{display:flex;gap:2px}
+.nav-links a{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,236,216,.7);text-decoration:none;padding:6px 12px;border-radius:4px;transition:all .18s}
+.nav-links a:hover,.nav-links a.active{background:rgba(246,236,216,.15);color:#f6ecd8}
+
+.wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 22px 90px}
+
+/* HEADER */
+header{padding:54px 0 30px;border-bottom:3px double var(--oxblood);margin-bottom:36px}
+.kicker{font-family:'Spline Sans Mono',monospace;font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--oxblood);font-weight:600}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,3.2rem);line-height:.98;letter-spacing:-.02em;margin:.2em 0 .15em;color:var(--ink)}
+h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
+.sub{font-size:15px;color:var(--ink-soft);max-width:60ch}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:2px solid var(--line);padding-bottom:0}
+.tab-btn{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border:none;background:transparent;cursor:pointer;color:var(--ink-soft);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s}
+.tab-btn.active,.tab-btn:hover{color:var(--oxblood)}
+.tab-btn.active{border-bottom-color:var(--oxblood);font-weight:600}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ACCORDION */
+.acc{border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:16px;background:rgba(255,253,247,.55)}
+.acc-head{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;user-select:none;background:rgba(234,221,198,.45);transition:background .2s}
+.acc-head:hover{background:rgba(234,221,198,.85)}
+.acc-head .chev{color:var(--oxblood);font-size:13px;transition:transform .25s}
+.acc.open .chev{transform:none}
+.acc:not(.open) .chev{transform:rotate(-90deg)}
+.acc-head h3{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;flex:1;color:var(--ink)}
+.acc-head .badge{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.acc.open .acc-body{max-height:8000px}
+.acc-content{padding:18px 22px 20px}
+
+/* CONTENT STYLES */
+.topic-section{margin-bottom:22px}
+.topic-title{font-family:'Spline Sans Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;padding-bottom:5px;border-bottom:1px dashed var(--line)}
+.content-block{margin-bottom:16px}
+.content-block p{font-size:14.5px;color:var(--ink);margin-bottom:8px;line-height:1.65}
+.content-block ul,.content-block ol{padding-left:20px;margin-bottom:8px}
+.content-block li{font-size:14px;color:var(--ink);margin-bottom:5px;line-height:1.6}
+.content-block li strong{color:var(--oxblood)}
+.content-block .note{background:rgba(169,118,47,.1);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 4px 4px 0;font-size:13.5px;color:var(--ink-soft);margin:10px 0}
+.content-block .alert{background:rgba(110,31,37,.07);border-left:3px solid var(--oxblood);padding:10px 14px;border-radius:0 4px 4px 0;font-size:13.5px;color:var(--ink);margin:10px 0}
+.content-block .alert strong{color:var(--oxblood)}
+table.mat{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+table.mat th{background:var(--oxblood);color:#f6ecd8;font-family:'Spline Sans Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;text-align:left}
+table.mat td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+table.mat tr:nth-child(even) td{background:rgba(234,221,198,.3)}
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Analista <em>Legislativo</em></a>
+    <div class="nav-links">
+      <a href="index.html">Painel</a>
+      <a href="material.html" class="active">Material</a>
+      <a href="simulado.html">Simulado</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">Câmara Municipal de Santana de Cataguases · Edital 01/2026</div>
+    <h1>Material de <em>Estudo</em></h1>
+    <p class="sub">Resumos organizados por disciplina conforme o conteúdo programático do edital. Clique nos tópicos para expandir.</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="port">Português</button>
+    <button class="tab-btn" data-tab="cg">Conhecimentos Gerais</button>
+    <button class="tab-btn" data-tab="ce">Conhecimentos Específicos</button>
+  </div>
+
+  <!-- ==================== PORTUGUÊS ==================== -->
+  <div class="tab-panel active" id="tab-port">
+
+    <div class="acc open">
+      <div class="acc-head"><span class="chev">▼</span><h3>Fonética, Ortografia e Divisão Silábica</h3><span class="badge">base</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="topic-section">
+          <div class="topic-title">Dígrafos</div>
+          <div class="content-block">
+            <p>Dígrafo = dois grafemas que representam um único fonema.</p>
+            <ul>
+              <li><strong>Consonantais:</strong> ch, lh, nh, rr, ss, sc, sç, xc, xs, gu (+ e/i), qu (+ e/i)</li>
+              <li><strong>Vocálicos (nasais):</strong> am, an, em, en, im, in, om, on, um, un</li>
+            </ul>
+          </div>
+        </div>
+        <div class="topic-section">
+          <div class="topic-title">Divisão silábica — regras principais</div>
+          <div class="content-block">
+            <ul>
+              <li>Dígrafos <strong>não se separam:</strong> ca-rro, ba-nho, chi-co</li>
+              <li>Ditongos e tritongos: ficam na mesma sílaba — au-la, Pa-ra-guai</li>
+              <li>Hiato: vogais de sílabas diferentes — sa-ú-de, co-o-pe-ra-ti-va</li>
+              <li>Consoante + consoante (grupos não iniciadores): sep-tem-bro → sep | tem | bro</li>
+            </ul>
+            <div class="note">Grupos consonantais que iniciam palavras em português (pr, br, tr, dr, cr, gr, fr, pl, bl, cl, gl, fl) NÃO se separam: a-brir, a-pren-der.</div>
+          </div>
+        </div>
+        <div class="topic-section">
+          <div class="topic-title">Ortografia — casos mais cobrados</div>
+          <div class="content-block">
+            <ul>
+              <li><strong>S ou Z:</strong> -ês/-esa (português, inglesa); verbos em -izar/-isar (analisar, civilizar)</li>
+              <li><strong>X ou CH:</strong> após ditongo (caixa, frouxo); após "en-" (enxada, encher — exceções: encher, enchente)</li>
+              <li><strong>SS ou Ç:</strong> -ção de verbos em -ter/-tir (conter→contenção); -çar, -ço (dança, almoço)</li>
+            </ul>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Acentuação Gráfica</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Tipo</th><th>Regra</th><th>Exemplos</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Proparoxítonas</strong></td><td>SEMPRE acentuadas</td><td>lógico, público, médico, câmara</td></tr>
+              <tr><td><strong>Paroxítonas</strong></td><td>Acentuadas quando terminam em: r, l, n, x, ps, ã(s), ão(s), ei(s), us, um, uns, ditongo</td><td>caráter, fácil, hífen, tórax, bíceps, ímã, órgão</td></tr>
+              <tr><td><strong>Oxítonas</strong></td><td>Terminadas em a(s), e(s), o(s), em, ens + ditongos abertos éi, éu, ói</td><td>sofá, café, avó, também, herói</td></tr>
+            </tbody>
+          </table>
+          <div class="alert"><strong>Acordo Ortográfico 2009 — mudanças:</strong>
+            <ul style="margin-top:6px">
+              <li>Eliminou o trema (ü) — exceto nomes próprios estrangeiros</li>
+              <li>Suprimiu acento diferencial em: <em>para/pára, pelo/pêlo, polo/pólo</em> (verbos vs substantivos)</li>
+              <li>Eliminou acento em ditongos EI e OI tônicos em paroxítonas: <em>ideia, assembleia, jiboia</em> (sem acento)</li>
+              <li><em>Herói, chapéu, anéis</em> — mantêm acento (oxítonas)</li>
+            </ul>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Morfologia — Classes de Palavras</h3><span class="badge">base</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Classe</th><th>Definição resumida</th><th>Exemplos</th></tr></thead>
+            <tbody>
+              <tr><td>Substantivo</td><td>Nomeia seres, objetos, sentimentos, lugares</td><td>servidor, câmara, eficiência</td></tr>
+              <tr><td>Adjetivo</td><td>Caracteriza o substantivo</td><td>público, legislativo, honesto</td></tr>
+              <tr><td>Artigo</td><td>Define ou indefine o substantivo</td><td>o, a, um, uma</td></tr>
+              <tr><td>Pronome</td><td>Substitui ou determina o substantivo</td><td>ele, seu, este, quem</td></tr>
+              <tr><td>Numeral</td><td>Indica quantidade ou ordem</td><td>dois, terceiro, ambos</td></tr>
+              <tr><td>Verbo</td><td>Indica ação, estado ou fenômeno</td><td>legislar, ser, haver</td></tr>
+              <tr><td>Advérbio</td><td>Modifica verbo, adjetivo ou outro advérbio</td><td>sempre, muito, não</td></tr>
+              <tr><td>Preposição</td><td>Liga termos com relação de dependência</td><td>de, em, para, a, com</td></tr>
+              <tr><td>Conjunção</td><td>Liga orações ou termos de mesma função</td><td>e, mas, porque, embora</td></tr>
+              <tr><td>Interjeição</td><td>Expressa emoções</td><td>Oh!, Parabéns!, Silêncio!</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="topic-section">
+          <div class="topic-title">Formação de palavras</div>
+          <div class="content-block">
+            <ul>
+              <li><strong>Derivação prefixal:</strong> des + honra = desonra | in + capaz = incapaz</li>
+              <li><strong>Derivação sufixal:</strong> legal + idade = legalidade | fiel + mente = fielmente</li>
+              <li><strong>Composição por justaposição:</strong> guarda-chuva, passatempo</li>
+              <li><strong>Composição por aglutinação:</strong> planalto (plano+alto), fidalgo (filho+de+algo)</li>
+            </ul>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Sintaxe — Concordância Verbal</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <p><strong>Regra geral:</strong> o verbo concorda em número e pessoa com o sujeito.</p>
+          <div class="topic-title" style="margin-top:14px">Casos especiais cobrados em prova</div>
+          <ul>
+            <li><strong>Verbos impessoais</strong> (haver = existir, fazer = tempo, ser = hora) → sempre singular: <em>Faz dois anos · Há muitos problemas · São 10h</em></li>
+            <li><strong>"A maioria de…"</strong> → concorda com o núcleo (singular) ou atrativamente com o adjunto: <em>A maioria dos servidores compareceu</em> (preferível)</li>
+            <li><strong>Sujeito composto antes do verbo</strong> → plural: <em>O prefeito e o vereador assinaram</em></li>
+            <li><strong>Sujeito composto depois do verbo</strong> → pode concordar com o mais próximo: <em>Assinou o prefeito e o secretário</em></li>
+            <li><strong>Sujeito coletivo</strong> → singular: <em>A comissão decidiu</em></li>
+            <li><strong>Pronomes relativos (quem, que)</strong>: retomam o antecedente → <em>Fui eu que errei / Fomos nós que erramos</em></li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Sintaxe — Concordância Nominal</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <ul>
+            <li>Adjetivo predicativo com <strong>vários substantivos de gêneros diferentes</strong> → masculino plural: <em>A lei e o decreto foram claros</em></li>
+            <li>Adjetivo atributivo antes dos substantivos → concorda com o mais próximo: <em>Novo projeto e plano</em></li>
+            <li><strong>"Obrigado/a"</strong> → concorda com o falante (não com o ouvinte)</li>
+            <li><strong>"Mesmo/próprio/só"</strong> → concordam com o sujeito</li>
+            <li><strong>"Menos/alerta/pseudo"</strong> → invariáveis</li>
+            <li><strong>"Bastante(s)"</strong> → varia como adjetivo; não varia como advérbio</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Regência Verbal — Verbos Mais Cobrados</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Verbo</th><th>Sentido</th><th>Regência</th><th>Exemplo correto</th></tr></thead>
+            <tbody>
+              <tr><td>Assistir</td><td>ver / presenciar</td><td>indireto (a)</td><td>Assistiu <em>à</em> sessão</td></tr>
+              <tr><td>Assistir</td><td>ajudar</td><td>direto</td><td>O médico assistiu o paciente</td></tr>
+              <tr><td>Aspirar</td><td>almejar</td><td>indireto (a)</td><td>Aspira <em>ao</em> cargo</td></tr>
+              <tr><td>Obedecer</td><td>—</td><td>indireto (a)</td><td>Obedeceu <em>às</em> normas</td></tr>
+              <tr><td>Visar</td><td>ter como objetivo</td><td>indireto (a)</td><td>Visa <em>ao</em> bem comum</td></tr>
+              <tr><td>Visar</td><td>mirar / rubricar</td><td>direto</td><td>Visou o documento</td></tr>
+              <tr><td>Preferir</td><td>—</td><td>indireto (a)</td><td>Prefere estudar <em>a</em> procrastinar</td></tr>
+              <tr><td>Implicar</td><td>acarretar</td><td>direto</td><td>Implica responsabilidade</td></tr>
+              <tr><td>Pagar/perdoar</td><td>à pessoa</td><td>indireto (a)</td><td>Pagou <em>ao</em> fornecedor</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Crase</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <p>Crase = fusão da preposição <strong>a</strong> + artigo definido <strong>a</strong> (ou pronome demonstrativo <strong>a/aquela/aquele</strong>).</p>
+          <div class="alert"><strong>Proibida antes de:</strong>
+            <ul style="margin-top:6px">
+              <li>Substantivos masculinos: <em>a pé, a pedido</em></li>
+              <li>Verbos: <em>começou a falar</em></li>
+              <li>Pronomes do caso reto: <em>a ele, a ela, a nós</em></li>
+              <li>Artigo indefinido: <em>a uma reunião</em></li>
+              <li>Pronome de tratamento (exceto "a senhora"): <em>a Vossa Excelência</em></li>
+            </ul>
+          </div>
+          <div class="note"><strong>Obrigatória antes de:</strong> substantivos femininos que admitem artigo definido: <em>à câmara, à sessão, às terças-feiras</em>.<br>
+          <strong>Teste:</strong> substitua por substantivo masculino — se precisar de "ao", usa crase no feminino.</div>
+          <ul style="margin-top:10px">
+            <li><strong>Facultativa</strong> antes de possessivos femininos: <em>Entreguei o ofício à/a sua secretária</em></li>
+            <li><strong>Locuções adverbiais/prepositivas femininas:</strong> sempre com crase — <em>à tarde, à medida que, à proporção que</em></li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Colocação Pronominal</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Posição</th><th>Quando usar</th><th>Exemplo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Próclise</strong> (antes)</td><td>Palavras atrativas: não, nunca, jamais, nenhum, tudo, todos, muito, pronomes relativos, conjunções subordinativas, advérbios</td><td><em>Não me disse nada · Jamais lhe contei</em></td></tr>
+              <tr><td><strong>Ênclise</strong> (depois)</td><td>Início de oração sem palavra atrativa, imperativo afirmativo, verbo no infinitivo impessoal</td><td><em>Disse-me a verdade · Fala-se muito</em></td></tr>
+              <tr><td><strong>Mesóclise</strong> (no meio)</td><td>Futuro do presente e futuro do pretérito (sem palavra atrativa)</td><td><em>Informar-me-á amanhã</em></td></tr>
+            </tbody>
+          </table>
+          <div class="alert"><strong>Em início absoluto de oração NÃO se usa pronome oblíquo átono.</strong> "Me diga" e "Te vi" são incorretos na norma culta escrita.</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Figuras de Linguagem</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Figura</th><th>Definição</th><th>Exemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Metáfora</td><td>Comparação implícita (sem conectivo)</td><td><em>O servidor é uma engrenagem do Estado</em></td></tr>
+              <tr><td>Comparação/Símile</td><td>Comparação explícita (com "como", "tal qual")</td><td><em>Trabalha como uma máquina</em></td></tr>
+              <tr><td>Metonímia</td><td>Substituição por contiguidade (parte/todo, continente/conteúdo)</td><td><em>Leu Machado de Assis</em> (a obra)</td></tr>
+              <tr><td>Personificação</td><td>Atribui características humanas a seres inanimados</td><td><em>A lei fala por si mesma</em></td></tr>
+              <tr><td>Hipérbole</td><td>Exagero expressivo</td><td><em>Estou morrendo de trabalhar</em></td></tr>
+              <tr><td>Eufemismo</td><td>Suavização de ideia desagradável</td><td><em>Ele nos deixou</em> (morreu)</td></tr>
+              <tr><td>Antítese</td><td>Oposição de ideias</td><td><em>O público e o privado</em></td></tr>
+              <tr><td>Paradoxo</td><td>Contradição aparente</td><td><em>Sou tão pobre que só tenho dinheiro</em></td></tr>
+              <tr><td>Anáfora</td><td>Repetição de termo no início de frases</td><td><em>Transparência, transparência, transparência</em></td></tr>
+              <tr><td>Elipse</td><td>Omissão de termo recuperável</td><td><em>[Nós] Aprovamos o projeto</em></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Interpretação e Análise de Textos</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Estratégias de interpretação</div>
+          <ul>
+            <li>Leia o enunciado da questão <strong>antes</strong> do texto para saber o que buscar</li>
+            <li>Respostas devem estar fundamentadas no texto — evite inferências excessivas</li>
+            <li>Atenção a expressões modalizadoras: "pode", "sempre", "jamais", "necessariamente"</li>
+            <li>Distratores comuns: alternativas que contradizem o texto, generalizam demais ou afirmam o oposto</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Coesão e coerência</div>
+          <ul>
+            <li><strong>Coesão:</strong> conexão gramatical entre palavras/frases (uso de pronomes, conjunções, elipses)</li>
+            <li><strong>Coerência:</strong> unidade de sentido, sem contradições ou incoerências lógicas</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Conectivos mais cobrados</div>
+          <table class="mat">
+            <thead><tr><th>Sentido</th><th>Exemplos</th></tr></thead>
+            <tbody>
+              <tr><td>Adição</td><td>e, além disso, também, não só… mas também</td></tr>
+              <tr><td>Oposição/adversidade</td><td>mas, porém, contudo, entretanto, todavia, no entanto</td></tr>
+              <tr><td>Conclusão</td><td>portanto, logo, assim, por conseguinte, então</td></tr>
+              <tr><td>Causa</td><td>porque, pois, uma vez que, já que, visto que</td></tr>
+              <tr><td>Concessão</td><td>embora, ainda que, mesmo que, apesar de</td></tr>
+              <tr><td>Condição</td><td>se, caso, desde que, a não ser que</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+  </div><!-- /tab-port -->
+
+  <!-- ==================== CONHECIMENTOS GERAIS ==================== -->
+  <div class="tab-panel" id="tab-cg">
+
+    <div class="acc open">
+      <div class="acc-head"><span class="chev">▼</span><h3>Santana de Cataguases</h3><span class="badge">específico</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <ul>
+            <li><strong>Localização:</strong> Minas Gerais, mesorregião Zona da Mata Mineira</li>
+            <li><strong>Microrregião:</strong> Cataguases</li>
+            <li><strong>Fundação:</strong> desmembrado de Cataguases; emancipado no século XX</li>
+            <li><strong>Economia:</strong> agropecuária (especialmente laticínios e criação de gado), pequenas agroindústrias</li>
+            <li><strong>Rio principal:</strong> bacia do Rio Paraíba do Sul / afluentes</li>
+            <li><strong>Símbolos municipais:</strong> bandeira e brasão aprovados pela Câmara Municipal</li>
+          </ul>
+          <div class="note">Em provas de concursos municipais, a história local, a lei orgânica e a estrutura de poder do município são temas recorrentes. Consulte o site da Câmara para detalhes do regimento interno.</div>
+        </div>
+        <div class="topic-section">
+          <div class="topic-title">Câmara Municipal de Santana de Cataguases</div>
+          <div class="content-block">
+            <ul>
+              <li>Órgão do Poder Legislativo municipal</li>
+              <li>Funções: <strong>legislar</strong> (criar leis municipais), <strong>fiscalizar</strong> o Executivo, <strong>aprovar</strong> o orçamento</li>
+              <li>Votação do PPA, LDO e LOA</li>
+              <li>Aprovação do plano diretor (art. 182, CF/88)</li>
+              <li>Julgamento de contas do prefeito (com auxílio do TCE-MG)</li>
+              <li>Realiza sessões ordinárias (periódicas) e extraordinárias (quando convocadas)</li>
+            </ul>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Minas Gerais — História e Geografia</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Fatos históricos essenciais</div>
+          <ul>
+            <li><strong>Ciclo do ouro (séc. XVIII):</strong> MG era centro econômico do Brasil colônia; capital Vila Rica (hoje Ouro Preto)</li>
+            <li><strong>Inconfidência Mineira (1789):</strong> movimento separatista liderado por Tiradentes; principal mártir executado</li>
+            <li><strong>Arcadismo mineiro:</strong> Tomás Antônio Gonzaga (Marília de Dirceu), Cláudio Manuel da Costa</li>
+            <li><strong>República:</strong> MG e SP protagonizaram a "política do café com leite" na Primeira República</li>
+            <li><strong>Capital:</strong> Ouro Preto (até 1897) → Belo Horizonte (planejada, inaugurada em 1897)</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Geografia</div>
+          <ul>
+            <li>Estado mais populoso do Sudeste depois de SP; 3º maior em população do Brasil</li>
+            <li>Mesorregiões: 12 (Zona da Mata, Vale do Rio Doce, Triângulo, Jequitinhonha, etc.)</li>
+            <li>Rios principais: São Francisco (nasce em MG), Jequitinhonha, Doce, Rio Grande, Paranaíba</li>
+            <li>Biomas: Cerrado, Mata Atlântica, Caatinga (porção norte)</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Brasil — Organização Política e Constitucional</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <ul>
+            <li><strong>CF/88:</strong> República Federativa do Brasil = União + estados + DF + municípios (art. 1º)</li>
+            <li><strong>Tripartição de poderes:</strong> Legislativo (edita leis), Executivo (executa políticas), Judiciário (aplica a lei nos conflitos)</li>
+            <li><strong>Direitos fundamentais:</strong> vida, liberdade, igualdade, segurança, propriedade (art. 5º)</li>
+            <li><strong>Emenda constitucional:</strong> 3/5 dos votos em 2 turnos em cada Casa do CN (art. 60, §2º)</li>
+            <li><strong>Princípios republicanos:</strong> legalidade, moralidade, impessoalidade, publicidade, eficiência (LIMPE)</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Competências municipais (art. 30, CF/88)</div>
+          <ul>
+            <li>Legislar sobre assuntos de interesse local</li>
+            <li>Suplementar a legislação federal e estadual</li>
+            <li>Instituir e arrecadar tributos municipais (IPTU, ISS, ITBI)</li>
+            <li>Manter, com a cooperação técnica e financeira da União e do estado, programas de educação infantil e ensino fundamental</li>
+            <li>Prestar serviços públicos de interesse local (transporte coletivo, etc.)</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Desenvolvimento Sustentável e Meio Ambiente</h3><span class="badge">atualidades</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <ul>
+            <li><strong>Agenda 2030 da ONU:</strong> 17 Objetivos de Desenvolvimento Sustentável (ODS) e 169 metas</li>
+            <li><strong>Acordo de Paris (2015):</strong> meta de limitar aquecimento global a 1,5°C acima dos níveis pré-industriais</li>
+            <li><strong>COP30 (Belém-PA, 2025):</strong> conferência climática da ONU; Brasil como anfitrião; foco na Amazônia</li>
+            <li><strong>Matriz elétrica brasileira:</strong> ~85% renovável; hidrelétrica (~60%), eólica, solar em expansão</li>
+            <li><strong>Política Nacional de Resíduos Sólidos (Lei 12.305/2010):</strong> logística reversa, responsabilidade compartilhada</li>
+          </ul>
+          <div class="note">Sustentabilidade = equilíbrio entre desenvolvimento econômico, equidade social e proteção ambiental (tripé da sustentabilidade).</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Atualidades — Temas Recorrentes</h3><span class="badge">atualidades</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Reforma tributária (EC 132/2023)</div>
+          <ul>
+            <li>Substituição de 5 tributos (PIS, Cofins, IPI, ICMS, ISS) por 2: <strong>CBS</strong> (federal) + <strong>IBS</strong> (subnacional) + <strong>IS</strong> (seletivo)</li>
+            <li>Objetivo: simplificação, transparência e redução do custo de conformidade</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Inteligência Artificial na gestão pública</div>
+          <ul>
+            <li>OCDE: Princípios para uso ético da IA (transparência, responsabilidade, robustez)</li>
+            <li>Uso no setor público: análise de dados, automação, atendimento ao cidadão</li>
+            <li>Riscos: viés algorítmico, privacidade, exclusão digital</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">SUS — princípios doutrinários</div>
+          <ul>
+            <li><strong>Universalidade:</strong> acesso para todos os cidadãos</li>
+            <li><strong>Integralidade:</strong> atenção completa, da prevenção ao tratamento</li>
+            <li><strong>Equidade:</strong> tratar desiguais de forma desigual, priorizando os mais vulneráveis</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">IDEB</div>
+          <ul>
+            <li>Índice de Desenvolvimento da Educação Básica (INEP/MEC, desde 2007)</li>
+            <li>Combina: taxa de aprovação + desempenho no SAEB (Prova Brasil)</li>
+            <li>Metas bianuais; permite comparar escolas, municípios e estados</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+  </div><!-- /tab-cg -->
+
+  <!-- ==================== CONHECIMENTOS ESPECÍFICOS ==================== -->
+  <div class="tab-panel" id="tab-ce">
+
+    <div class="acc open">
+      <div class="acc-head"><span class="chev">▼</span><h3>Princípios da Administração Pública — LIMPE</h3><span class="badge">fundamental</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Princípio</th><th>Conteúdo</th><th>Ponto de atenção em prova</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Legalidade</strong></td><td>AP só age com prévia autorização legal</td><td>≠ do particular (que pode tudo que lei não proíbe)</td></tr>
+              <tr><td><strong>Impessoalidade</strong></td><td>Atos visam ao interesse público, sem favorecimento</td><td>Veda promoção pessoal; ato é da AP, não do agente</td></tr>
+              <tr><td><strong>Moralidade</strong></td><td>Ética, probidade, boa-fé na atuação</td><td>Distinto da moralidade comum; é jurídica e exigível</td></tr>
+              <tr><td><strong>Publicidade</strong></td><td>Transparência; atos devem ser divulgados</td><td>Exceções legais: segurança nacional, intimidade</td></tr>
+              <tr><td><strong>Eficiência</strong></td><td>Melhores resultados com menor custo</td><td>Inserido pela EC 19/1998</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Atos Administrativos</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Elementos (requisitos de validade)</div>
+          <ul>
+            <li><strong>Competência:</strong> agente legalmente habilitado para praticar o ato</li>
+            <li><strong>Finalidade:</strong> interesse público (desvio = abuso de poder)</li>
+            <li><strong>Forma:</strong> modo de exteriorização previsto em lei</li>
+            <li><strong>Motivo:</strong> fundamento de fato e de direito que justifica o ato</li>
+            <li><strong>Objeto:</strong> conteúdo / efeito jurídico produzido</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Atributos</div>
+          <ul>
+            <li><strong>Presunção de legitimidade e veracidade:</strong> presume-se legal até prova em contrário (invertendo o ônus)</li>
+            <li><strong>Imperatividade:</strong> impõe obrigações independentemente do consentimento do particular</li>
+            <li><strong>Autoexecutoriedade:</strong> pode ser executado diretamente sem autorização judicial</li>
+            <li><strong>Tipicidade:</strong> correspondência a tipos legais previstos (doutrina moderna)</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Extinção</div>
+          <ul>
+            <li><strong>Revogação:</strong> por razões de conveniência/oportunidade; só para atos discricionários; efeitos ex nunc (não retroage)</li>
+            <li><strong>Anulação:</strong> por ilegalidade; realizada pela AP ou pelo Judiciário; efeitos ex tunc (retroage)</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Poderes Administrativos</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <table class="mat">
+            <thead><tr><th>Poder</th><th>Finalidade</th><th>Exemplo</th></tr></thead>
+            <tbody>
+              <tr><td>Vinculado</td><td>Ato sem margem de escolha; todos os elementos são definidos em lei</td><td>Concessão de aposentadoria por lei</td></tr>
+              <tr><td>Discricionário</td><td>Margem de conveniência e oportunidade (mérito)</td><td>Autorização de funcionamento de estabelecimento</td></tr>
+              <tr><td>Hierárquico</td><td>Organizar, coordenar, controlar, delegar</td><td>Chefe delega competência a subordinado</td></tr>
+              <tr><td>Disciplinar</td><td>Aplicar sanções a servidores e contratados</td><td>Advertência, suspensão, demissão de servidor</td></tr>
+              <tr><td>Regulamentar</td><td>Editar normas gerais para execução das leis</td><td>Decreto presidencial / municipal</td></tr>
+              <tr><td>De polícia</td><td>Restringir atividades particulares em prol do interesse coletivo</td><td>Multa de trânsito, interdição sanitária</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Licitações — Lei 14.133/2021</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Modalidades</div>
+          <table class="mat">
+            <thead><tr><th>Modalidade</th><th>Uso</th></tr></thead>
+            <tbody>
+              <tr><td>Pregão</td><td>Bens e serviços comuns (especificados por padrão de desempenho/qualidade)</td></tr>
+              <tr><td>Concorrência</td><td>Obras, serviços especiais, grandes valores; qualquer objeto</td></tr>
+              <tr><td>Concurso</td><td>Trabalho técnico, científico ou artístico (escolha por melhor técnica)</td></tr>
+              <tr><td>Leilão</td><td>Alienação de bens e concessões</td></tr>
+              <tr><td>Diálogo competitivo</td><td>Contratos inovadores quando AP não sabe definir solução técnica adequada</td></tr>
+            </tbody>
+          </table>
+          <div class="topic-title" style="margin-top:14px">Dispensa e inexigibilidade</div>
+          <ul>
+            <li><strong>Dispensa de licitação:</strong> licitação seria possível, mas a lei autoriza dispensar (ex.: valores baixos, emergência)</li>
+            <li>Obras/engenharia: até <strong>R$ 100.000</strong> | Outros bens/serviços: até <strong>R$ 50.000</strong></li>
+            <li><strong>Inexigibilidade:</strong> competição impossível (fornecedor exclusivo, artista consagrado, serviços técnicos singulares)</li>
+          </ul>
+          <div class="alert"><strong>Atenção:</strong> a tomada de preços e o convite foram EXTINTOS pela Lei 14.133/2021.</div>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Contratos Administrativos</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Cláusulas exorbitantes (prerrogativas da AP)</div>
+          <ul>
+            <li><strong>Modificação unilateral:</strong> pode alterar qualidade ou quantidade do objeto (até 25% para acréscimos/supressões)</li>
+            <li><strong>Rescisão unilateral:</strong> por inexecução do contratado ou interesse público</li>
+            <li><strong>Fiscalização:</strong> direito de acompanhar a execução contratual</li>
+            <li><strong>Aplicação de penalidades:</strong> advertência, multa, suspensão, declaração de inidoneidade</li>
+            <li><strong>Ocupação provisória:</strong> de pessoal e bens do contratado em caso de urgência</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Equilíbrio econômico-financeiro</div>
+          <p>A AP deve manter a equação econômica inicial do contrato. Se houver desequilíbrio por fatos supervenientes alheios às partes (teoria da imprevisão / áleas econômicas extraordinárias), cabe revisão.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Administração de Recursos Humanos</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Recrutamento</div>
+          <ul>
+            <li><strong>Interno:</strong> busca dentro da organização (promoção, transferência) — motiva, barato, aproveita potencial interno</li>
+            <li><strong>Externo:</strong> busca no mercado de trabalho — traz novas ideias, renova a cultura, mas custa mais</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Seleção</div>
+          <ul>
+            <li><strong>Entrevista estruturada:</strong> perguntas padronizadas para todos; mais objetiva e comparável</li>
+            <li><strong>Entrevista não estruturada:</strong> livre; mais flexível, porém com maior risco de viés</li>
+            <li><strong>Testes cognitivos:</strong> raciocínio lógico, verbal, numérico</li>
+            <li><strong>Testes de personalidade:</strong> identificação de traços como liderança, estabilidade emocional</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Treinamento — Ciclo</div>
+          <ol style="padding-left:20px">
+            <li><strong>LNT</strong> (Levantamento das Necessidades): diagnóstico das lacunas CHA (Conhecimento, Habilidade, Atitude)</li>
+            <li><strong>Planejamento:</strong> definição de objetivos, métodos, público e cronograma</li>
+            <li><strong>Execução:</strong> aplicação do programa</li>
+            <li><strong>Avaliação</strong> (Kirkpatrick): Reação → Aprendizado → Comportamento → Resultados</li>
+          </ol>
+          <div class="topic-title" style="margin-top:14px">Avaliação de Desempenho</div>
+          <ul>
+            <li><strong>Escala gráfica:</strong> grade de critérios com notas; simples mas pode ser subjetivo</li>
+            <li><strong>360°:</strong> múltiplas fontes (superior, pares, subordinados, autoavaliação); visão completa</li>
+            <li><strong>Por objetivos (APO):</strong> metas acordadas entre gestor e servidor; foco em resultados</li>
+            <li><strong>BARS:</strong> ancoragem em comportamentos específicos; maior objetividade</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Orçamento Público e Ciclo Orçamentário</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Instrumentos de planejamento</div>
+          <table class="mat">
+            <thead><tr><th>Instrumento</th><th>Prazo</th><th>Conteúdo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>PPA</strong></td><td>4 anos</td><td>Diretrizes, objetivos e metas de médio prazo; programas governamentais</td></tr>
+              <tr><td><strong>LDO</strong></td><td>1 ano (orienta o seguinte)</td><td>Metas fiscais, prioridades, condições para elaboração da LOA</td></tr>
+              <tr><td><strong>LOA</strong></td><td>1 ano (exercício financeiro)</td><td>Orçamento detalhado: previsão de receitas + fixação de despesas</td></tr>
+            </tbody>
+          </table>
+          <div class="topic-title" style="margin-top:14px">Princípios orçamentários</div>
+          <ul>
+            <li><strong>Anualidade:</strong> vigência de 1 ano (1º jan a 31 dez)</li>
+            <li><strong>Unidade/Totalidade:</strong> um único documento orçamentário</li>
+            <li><strong>Universalidade:</strong> todas receitas e despesas no orçamento</li>
+            <li><strong>Exclusividade:</strong> LOA só trata de receitas e despesas (veda normas estranhas)</li>
+            <li><strong>Equilíbrio:</strong> receitas = despesas (objetivo; não obrigatório constitucionalmente)</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Classificação das receitas</div>
+          <ul>
+            <li><strong>Correntes:</strong> tributárias, contribuições, patrimoniais, agropecuárias, de serviços, transferências → não geram obrigação de devolução</li>
+            <li><strong>De capital:</strong> operações de crédito, alienações, amortizações recebidas → origem em mutação patrimonial</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Lei de Responsabilidade Fiscal (LC 101/2000)</h3><span class="badge">muito cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <ul>
+            <li>Estabelece normas de finanças públicas para <strong>responsabilidade na gestão fiscal</strong></li>
+            <li>Pilares: planejamento, transparência, controle e responsabilização</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Limites de gastos com pessoal (% da RCL)</div>
+          <table class="mat">
+            <thead><tr><th>Ente</th><th>Limite total</th><th>Executivo</th><th>Legislativo</th></tr></thead>
+            <tbody>
+              <tr><td>União</td><td>50%</td><td>40,9%</td><td>2,5%</td></tr>
+              <tr><td>Estados</td><td>60%</td><td>49%</td><td>3%</td></tr>
+              <tr><td><strong>Municípios</strong></td><td><strong>60%</strong></td><td>54%</td><td>6%</td></tr>
+            </tbody>
+          </table>
+          <div class="topic-title" style="margin-top:14px">Vedações importantes</div>
+          <ul>
+            <li>Nos <strong>180 dias antes do fim do mandato:</strong> proibido aumento de gastos com pessoal</li>
+            <li><strong>Proibido conceder benefícios fiscais</strong> sem compensação de receita</li>
+            <li>Relatórios obrigatórios: <strong>RREO</strong> (bimestral) e <strong>RGF</strong> (quadrimestral para municípios &lt; 50 mil hab.)</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="chev">▼</span><h3>Desenvolvimento e Gestão Organizacional</h3><span class="badge">cobrado</span></div>
+      <div class="acc-body"><div class="acc-content">
+        <div class="content-block">
+          <div class="topic-title">Planejamento estratégico</div>
+          <ul>
+            <li><strong>Missão:</strong> razão de ser da organização</li>
+            <li><strong>Visão:</strong> onde a organização quer chegar</li>
+            <li><strong>Valores:</strong> princípios que guiam as ações</li>
+            <li><strong>Objetivos estratégicos:</strong> resultados de longo prazo a serem alcançados</li>
+            <li><strong>SWOT/FOFA:</strong> análise de Forças, Oportunidades, Fraquezas, Ameaças</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Estrutura organizacional</div>
+          <ul>
+            <li><strong>Organograma:</strong> representação gráfica da hierarquia e relações formais</li>
+            <li><strong>Manuais administrativos:</strong> de organização, de procedimentos, de normas e políticas</li>
+            <li><strong>Formulários:</strong> instrumentos de coleta e registro padronizado de dados</li>
+          </ul>
+          <div class="topic-title" style="margin-top:14px">Governança e avaliação</div>
+          <ul>
+            <li><strong>Governança corporativa pública:</strong> conjunto de mecanismos para assegurar que a AP seja exercida no interesse da sociedade (accountability, transparência, equidade)</li>
+            <li><strong>Indicadores de desempenho:</strong> medem eficiência (meios), eficácia (resultados) e efetividade (impacto)</li>
+            <li><strong>Auditoria de resultados:</strong> verifica se os objetivos estratégicos foram atingidos</li>
+          </ul>
+        </div>
+      </div></div>
+    </div>
+
+  </div><!-- /tab-ce -->
+
+  <footer style="margin-top:60px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-soft)">
+    Conteúdo baseado no Edital nº 01/2026 · Câmara Municipal de Santana de Cataguases · Auctor Consultoria. Confira sempre o edital oficial.
+  </footer>
+</div>
+
+<script>
+// Tabs
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-"+btn.dataset.tab).classList.add("active");
+  });
+});
+// Accordions
+document.querySelectorAll(".acc-head").forEach(head=>{
+  head.addEventListener("click",()=>{
+    head.closest(".acc").classList.toggle("open");
+  });
+});
+</script>
+</body>
+</html>
