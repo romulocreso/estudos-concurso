@@ -53,7 +53,8 @@ h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
 
 .q-card{background:rgba(255,253,247,.75);border:1px solid var(--line);border-radius:8px;padding:26px 28px;margin-bottom:18px;box-shadow:0 4px 14px -8px var(--shadow)}
 .q-disc-tag{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.q-topic{font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+.q-topic{font-size:12px;color:var(--ink-soft);margin-bottom:14px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.real-badge{font-family:'Spline Sans Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:rgba(63,107,58,.15);color:var(--green);border:1px solid rgba(63,107,58,.3);padding:2px 8px;border-radius:3px;font-weight:600}
 .q-text{font-size:15.5px;color:var(--ink);line-height:1.65;white-space:pre-wrap}
 
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
@@ -131,8 +132,9 @@ h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
       <button class="filter-btn" data-disc="port">Português</button>
       <button class="filter-btn" data-disc="cg">Conhecimentos Gerais</button>
       <button class="filter-btn" data-disc="ce">Conhecimentos Específicos</button>
+      <button class="filter-btn" data-disc="real">Questões Reais Auctor</button>
     </div>
-    <p class="start-meta" id="startMeta">Serão exibidas <b>50 questões</b> em ordem aleatória.</p>
+    <p class="start-meta" id="startMeta">Serão exibidas <b>66 questões</b> em ordem aleatória.</p>
     <button class="btn-primary" id="startBtn">Iniciar simulado</button>
   </div>
 
@@ -178,6 +180,7 @@ h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
 
 <script>
 const DISC_LABELS = {port:"Português", cg:"Conhecimentos Gerais", ce:"Conhecimentos Específicos"};
+const FONTE_LABEL = "Auctor · Chácara-MG, 2022";
 const LETTERS = ["A","B","C","D"];
 
 const ALL_QUESTIONS = [
@@ -345,6 +348,90 @@ q:`Na estrutura constitucional brasileira, é competência EXCLUSIVA do municíp
 opts:["Legislar sobre direito civil e comercial.","Instituir e arrecadar tributos de sua competência e aplicar suas rendas.","Legislar sobre direito do trabalho.","Organizar e manter a polícia civil e militar."],
 ans:1,exp:"Conforme a CF/88, é competência exclusiva dos municípios, entre outras: legislar sobre assuntos de interesse local, suplementar legislação federal/estadual, e instituir e arrecadar os tributos de sua competência (IPTU, ISS, ITBI)."},
 
+/* ==================== QUESTÕES REAIS — AUCTOR CONSULTORIA (Chácara-MG, 2022) ==================== */
+/* Português Q1-Q10 e Conhecimentos Gerais Q11-Q20 extraídos do caderno do Procurador Municipal.     */
+/* Gabarito oficial verificado. Conhecimentos Específicos mantidos como elaborados por cargo.          */
+
+{id:51,disc:"port",real:true,topic:"Interpretação de texto",
+q:`Leia o texto e responda:\n\n"DISCURSOS REVELAM NOVA LINGUAGEM DA ESPLANADA — Com a mudança de governo, novas palavras ganharam força no vocabulário do poder. A análise dos discursos dos 34 ministros que tomaram posse mostra que temas escanteados na gestão do ex-presidente Jair Bolsonaro ganharam protagonismo. A palavra 'ciência' foi citada 66 vezes; 'cultura', 81 vezes; 'democracia', 93 vezes. O nome do presidente Lula apareceu 256 vezes — o sexto mais lembrado. A palavra 'todes' foi utilizada em pelo menos seis eventos de transmissão de cargo. Simone Tebet afirmou: 'Nos últimos anos, faltou vacina, faltou comida, faltou remédio, faltou emprego, faltou educação, faltou cultura. Faltou sustentabilidade. Faltou vida.'" (O Globo, 08/01/23)\n\nO principal objetivo comunicativo do texto é:`,
+opts:["Apresentar os prós e contras da adoção de uma nova linguagem utilizada na cerimônia de posse dos novos ministros.","Refletir sobre o vocabulário utilizado durante o governo de Jair Bolsonaro.","Informar a nova linguagem utilizada no Governo Lula que marca o reaparecimento de termos como 'cultura' e 'ciência'.","Exaltar o personalismo em torno do presidente Lula, apresentando-o como uma liderança mundial."],
+ans:2,exp:"O texto tem caráter informativo: relata e analisa as palavras em destaque nos discursos dos ministros, mostrando as mudanças de vocabulário em relação ao governo anterior. Não apresenta prós/contras (A), não tem como foco o governo Bolsonaro (B) e não exalta o personalismo (D)."},
+
+{id:52,disc:"port",real:true,topic:"Figuras de linguagem",
+q:`Considere o trecho do mesmo texto:\n\n"Nos últimos anos, faltou vacina, faltou comida, faltou remédio, faltou emprego, faltou educação, faltou cultura. Faltou sustentabilidade. Faltou vida." (Simone Tebet)\n\nNeste trecho, a palavra "faltou" é repetida no início de cada oração para intensificar seu significado. A esse recurso dá-se o nome de:`,
+opts:["Anáfora.","Ironia.","Eufemismo.","Prosopopeia."],
+ans:0,exp:"Anáfora é a figura de linguagem que consiste na repetição intencional de um termo no início de orações ou versos consecutivos, criando ênfase e ritmo. A repetição de 'faltou' é exemplo clássico de anáfora com efeito expressivo e emotivo."},
+
+{id:53,disc:"port",real:true,topic:"Interpretação de texto",
+q:`Considerando o mesmo texto sobre a linguagem da Esplanada, são exemplos de linguagem mais inclusiva citados no texto, EXCETO:`,
+opts:["A utilização da palavra 'todes'.","A referência a indígenas e à comunidade LGBTQIAP+.","O emprego de expressões como 'homens e mulheres pretos e pretas do Brasil'.","O aparecimento da palavra 'Deus' em 27 vezes."],
+ans:3,exp:"O texto menciona 'Deus' como herança do vocabulário do governo anterior (lema 'Deus acima de tudo'), sem relacioná-lo à linguagem inclusiva. As alternativas A, B e C descrevem diretamente iniciativas de linguagem inclusiva mencionadas no texto."},
+
+{id:54,disc:"port",real:true,topic:"Morfossintaxe — análise de texto",
+q:`Leia o poema de Yulia Novytska, ucraniana de 18 anos:\n\n"Escrevo o que não germinará nesta terra.\nA terra que pertence ao meu povo e a mim,\nonde soa minha língua, onde vibram meus pensamentos.\nVolto com eles à terra que amo e,\nsempre que penso na estepe, sou atingida pelo medo,\ncomo o vento da primavera que ressoa\ncom mísseis amaldiçoados que caem ao chão.\nMorte, medo e ódio.\nQuando há guerra, não há vento calmo no horizonte,\nnão há narcisos ao redor da escola."\n\nAnalise as afirmações:\nI – Em 'Escrevo o que não germinará nesta terra', a palavra 'nesta' é um artigo definido.\nII – O pronome 'onde', em suas duas ocorrências, retoma anaforicamente o substantivo 'terra'.\nIII – A oração subordinada adverbial temporal 'Quando há guerra...' é acompanhada por duas orações principais.\nIV – Em 'Volto com eles à terra que amo...', o emprego da crase é facultativo.\nEstá certo o que se afirma em:`,
+opts:["I e III","II e III","II e IV","I e IV"],
+ans:1,exp:"I – FALSA: 'nesta' é pronome demonstrativo (ne + esta), não artigo. II – VERDADEIRA: 'onde' retoma 'terra' anaforicamente. III – VERDADEIRA: 'Quando há guerra, [não há vento calmo...], [não há narcisos...]' — duas orações principais. IV – FALSA: crase é obrigatória antes de substantivo feminino com artigo ('à terra')."},
+
+{id:55,disc:"port",real:true,topic:"Pontuação",
+q:`Observe o emprego das vírgulas nos fragmentos do mesmo poema:\nI – 'Quando há guerra, não há vento calmo no horizonte...'\nII – 'Em breve, as escolas podem nem mais existir.'\nIII – 'Busco força para pensar uma nova realidade, mas a mente alcança o que era antes...'\nIV – 'Aqui, o mundo está quieto e a terra é doce.'\n\nA vírgula foi empregada corretamente em:`,
+opts:["I, II e III.","II, III e IV.","I, III e IV.","I, II, III e IV."],
+ans:0,exp:"I – correta: vírgula após oração adverbial temporal anteposta. II – correta: vírgula após adjunto adverbial de uma só palavra anteposto. III – correta: vírgula antes de conjunção adversativa 'mas'. IV – discutível/incorreta pela banca: 'Aqui', adjunto curto e integrado, não exigiria vírgula nesse contexto segundo o critério adotado."},
+
+{id:56,disc:"port",real:true,topic:"Semântica — modalização",
+q:`Leia o trecho:\n"Infelizmente, os exemplos citados não refletem as dificuldades vividas por mais de dois milhões de brasileiros, mas sinalizam que o autismo [...] pode e deve ser tratado."\n\nAssinale a alternativa em que a palavra destacada denota um estado emocional momentâneo da enunciadora:`,
+opts:["'Depoimentos demonstram como pessoas com o diagnóstico do transtorno surpreendem positivamente...'","'Frequentemente a mesma sociedade que desconsidera a diversidade...'","'Infelizmente, os exemplos citados não refletem as dificuldades vividas por mais de dois milhões de brasileiros...'","'As atenções humanas deixam a humanização de lado e buscam individualmente...'"],
+ans:2,exp:"'Infelizmente' é advérbio modal afetivo que expressa a avaliação subjetiva e o estado emocional da autora diante do que afirma. 'Positivamente' (modo), 'frequentemente' (frequência) e 'individualmente' (modo) são advérbios que não exprimem emoção da enunciadora."},
+
+{id:57,disc:"port",real:true,topic:"Sintaxe — aposto",
+q:`No fragmento: "Qual a relação de Lionel Messi, jogador de futebol argentino, a cantora Courtney Love, o nadador Michael Phelps e o cineasta Tim Burton? Os quatro são pessoas com certo grau de autismo [...]"\n\nÉ possível encontrar quatro apostos no fragmento. Está INCORRETAMENTE indicado como aposto:`,
+opts:["Lionel Messi","Courtney Love","Michael Phelps","Tim Burton"],
+ans:0,exp:"Na construção 'Lionel Messi, jogador de futebol argentino', 'Lionel Messi' é o termo principal e 'jogador de futebol argentino' é o aposto. Nas demais construções ('a cantora Courtney Love', 'o nadador Michael Phelps', 'o cineasta Tim Burton'), os nomes próprios são os apostos que identificam os substantivos comuns precedentes."},
+
+{id:58,disc:"port",real:true,topic:"Morfossintaxe — conjunção integrante vs. pronome relativo",
+q:`Sobre o texto do autismo, assinale a alternativa em que a palavra 'que' NÃO é um pronome relativo:`,
+opts:["'...que é considerado um transtorno e não se encaixa na definição de doença'","'...que não os impediu de conseguir sucesso e bom desempenho na carreira...'","'...deixa de refletir que todos têm ou terão um dia uma deficiência...'","'...buscando direitos que inclusive estão previstos em lei...'"],
+ans:2,exp:"Em C, 'que' introduz uma oração subordinada substantiva objetiva direta (objeto de 'refletir') — é conjunção integrante, não pronome relativo. Nas demais, 'que' retoma um antecedente nominal (o autismo, os quatro, direitos), sendo pronome relativo."},
+
+{id:59,disc:"port",real:true,topic:"Colocação pronominal",
+q:`Leia o fragmento do Hino Municipal de Chácara-MG:\n\n"Cumprimento-te Chácara amada, / o seu povo querido e viril. / Não te troco no Mundo por nada. / Tu és grandeza do meu Brasil! / Deus te deu a beleza e a fama, / e o povo se encanta ao te ver. / Ao sentir tua voz que me chama, / juro que sinto por ti, um prazer!"\n\nSobre o emprego de pronomes, identifique (V) para verdadeiras e (F) para falsas:\n( ) No título 'Te amo cidade querida!', há falha na colocação do pronome oblíquo átono.\n( ) Ao referir-se à cidade, os pronomes foram utilizados de maneira uniforme.\n( ) Em 'o povo se encanta ao te ver', o pronome 'se' é reflexivo.\n( ) Em 'Tu tens Matas!', o pronome 'Tu' é pessoal do caso reto.\nSequência correta, de cima para baixo:`,
+opts:["V – F – V – F","V – F – V – V","F – F – V – V","F – V – V – F"],
+ans:1,exp:"(V) 'Te amo' em início absoluto de oração viola a norma culta escrita — deveria ser 'Amo-te'. (F) O hino alterna 'te/tua' (2ª pessoa) e 'seu' (3ª pessoa) ao referir-se à cidade — há inconsistência. (V) 'se encanta' é voz reflexiva. (V) 'Tu' é pronome pessoal do caso reto (sujeito)."},
+
+{id:60,disc:"port",real:true,topic:"Morfologia — estrutura do verbo",
+q:`Leia: "Um discurso de Barack Obama — 'se trouxerem facas, levaremos armas' — foi estrela da noite." (Folha de S. Paulo, 13/01/2011)\n\nAssinale a alternativa em que NÃO foi identificado corretamente um elemento estrutural do verbo 'levaremos':`,
+opts:["Radical – lev","Vogal temática – a","Desinência modo-temporal – re","Desinência número-pessoal – os"],
+ans:3,exp:"'levaremos' = lev (radical) + a (vogal temática) + re (desinência modo-temporal do futuro do presente) + mos (desinência número-pessoal da 1ª pessoa do plural). A alternativa D afirma que a DNP é 'os', o que é incorreto — a desinência é 'mos'."},
+
+{id:61,disc:"cg",real:true,topic:"Matriz energética brasileira",
+q:`Leia: "Com 23,9 gigawatts (GW) de potência instalada, a energia solar se tornou a segunda maior fonte energética do Brasil em 2022, segundo a ABSOLAR. A fonte solar já trouxe ao Brasil mais de R$120,8 bilhões em investimentos e gerou mais de 705 mil empregos." (Brasil61)\n\nMesmo com o crescimento da energia solar, a principal fonte energética do Brasil é:`,
+opts:["Energia hídrica.","Energia eólica.","Energia nuclear.","Energia termoelétrica."],
+ans:0,exp:"O texto afirma que a energia solar se tornou a segunda maior fonte, confirmando que a energia hídrica (hidroelétrica) permanece como primeira. O Brasil possui uma das matrizes elétricas mais limpas do mundo, com a hidroeletricidade respondendo por mais de 60% da geração nacional."},
+
+{id:62,disc:"cg",real:true,topic:"Defesa Civil e federalismo",
+q:`"Após desastres naturais, seis cidades brasileiras vão receber repasse de mais de R$ 3,2 milhões do Governo Federal por meio da Defesa Civil Nacional. Cidades em situação de emergência ou estado de calamidade pública reconhecido pela Defesa Civil Nacional estão aptas a solicitar recursos."\n\nOs repasses desses recursos são autorizados pelo:`,
+opts:["Ministério da Saúde.","Ministério da Justiça e Segurança Pública.","Ministério da Agricultura e Pecuária.","Ministério da Integração e do Desenvolvimento Regional."],
+ans:3,exp:"A Defesa Civil Nacional é vinculada ao Ministério da Integração e do Desenvolvimento Regional (MIDR), responsável pela coordenação das ações de proteção e defesa civil, prevenção e resposta a desastres."},
+
+{id:63,disc:"cg",real:true,topic:"Fundo de Participação dos Municípios",
+q:`"A prévia do Censo Demográfico de 2022 causou a diminuição do coeficiente de 863 cidades no Fundo de Participação dos Municípios (FPM), levando-as a receber menos recursos a partir de janeiro de 2023."\n\nEm relação à aplicação dos recursos do FPM pelos municípios:`,
+opts:["Devem ser aplicados exclusivamente na manutenção e desenvolvimento da educação básica pública.","Devem ser aplicados exclusivamente no enfrentamento de emergências de saúde pública.","Devem ser aplicados exclusivamente na universalização do saneamento básico.","Não há vinculações específicas obrigatórias para a aplicação desses recursos."],
+ans:3,exp:"O FPM é transferência constitucional de livre aplicação pelos municípios, diferentemente do FUNDEB (vinculado à educação) ou repasses do SUS (saúde). Os municípios têm autonomia para alocar os recursos conforme suas prioridades, respeitando as regras gerais da LRF."},
+
+{id:64,disc:"cg",real:true,topic:"Atualidades — posse presidencial",
+q:`"A posse do presidente eleito Luiz Inácio Lula da Silva foi a última realizada no dia 1º de janeiro. A mudança da data está prevista em emenda constitucional aprovada em setembro de 2022."\n\nDe acordo com a nova regra, a partir de 2027 a posse dos presidentes e vices ocorrerá no dia:`,
+opts:["6 de janeiro.","15 de novembro.","5 de janeiro.","31 de janeiro."],
+ans:2,exp:"A EC aprovada em 2022 fixou o dia 5 de janeiro como nova data de posse presidencial a partir de 2027. A mudança visa dar mais tempo para a transição de governo após a eleição de outubro."},
+
+{id:65,disc:"cg",real:true,topic:"Atualidades — Pix",
+q:`"O Banco Central anunciou mudanças no Pix para oferecer mais segurança e flexibilidade ao mecanismo de pagamento."\n\nSão mudanças anunciadas pelo BC, EXCETO:`,
+opts:["O limite individual por transação deixa de existir.","A fixação de cobrança de taxa para transações comuns de pessoa física.","O horário noturno passou a ser personalizado pelo usuário.","Os valores das modalidades Pix Saque e Pix Troco foram aumentados."],
+ans:1,exp:"O Pix é gratuito para pessoas físicas por determinação do Banco Central — nenhuma taxa foi cobrada para transações comuns de PF. As demais mudanças (fim do limite fixo por transação, personalização do horário noturno e aumento dos limites do Pix Saque/Troco) foram efetivamente implementadas."},
+
+{id:66,disc:"cg",real:true,topic:"Atualidades — transferência de renda",
+q:`"O Auxílio Brasil impactou diretamente na economia das cidades brasileiras e de milhões de pessoas em situação de vulnerabilidade. Em 2022, o programa bateu recorde, com 21,6 milhões de famílias contempladas."\n\nDas cinco regiões do país, aquela que reúne o maior número de famílias contempladas pelos benefícios sociais é:`,
+opts:["Nordeste.","Sudeste.","Norte.","Sul."],
+ans:0,exp:"O Nordeste concentra o maior número de beneficiários de programas de transferência de renda, reflexo dos maiores índices de pobreza e vulnerabilidade da região. Estados como Bahia, Ceará, Maranhão e Pernambuco lideram historicamente o número de famílias beneficiadas."},
+
 /* ==================== CONHECIMENTOS ESPECÍFICOS ==================== */
 {id:31,disc:"ce",topic:"Princípios administrativos — legalidade",
 q:`O princípio da legalidade, para a Administração Pública, significa que:`,
@@ -463,9 +550,12 @@ function shuffle(arr){
 }
 
 function updateStartMeta(){
-  const n = activeDisc === "all" ? ALL_QUESTIONS.length : ALL_QUESTIONS.filter(q=>q.disc===activeDisc).length;
-  const label = activeDisc === "all" ? "50 questões" : `${n} questão${n!==1?"s":""}`;
-  document.getElementById("startMeta").innerHTML = `Serão exibidas <b>${label}</b> em ordem aleatória.`;
+  let pool;
+  if(activeDisc === "all") pool = ALL_QUESTIONS;
+  else if(activeDisc === "real") pool = ALL_QUESTIONS.filter(q=>q.real);
+  else pool = ALL_QUESTIONS.filter(q=>q.disc===activeDisc);
+  const n = pool.length;
+  document.getElementById("startMeta").innerHTML = `Serão exibidas <b>${n} questão${n!==1?"s":""}</b> em ordem aleatória.`;
 }
 
 document.querySelectorAll(".filter-btn").forEach(btn=>{
@@ -486,7 +576,10 @@ document.getElementById("backBtn").addEventListener("click", ()=>{
 });
 
 function startQuiz(){
-  const pool = activeDisc === "all" ? [...ALL_QUESTIONS] : ALL_QUESTIONS.filter(q=>q.disc===activeDisc);
+  let pool;
+  if(activeDisc === "all") pool = [...ALL_QUESTIONS];
+  else if(activeDisc === "real") pool = ALL_QUESTIONS.filter(q=>q.real);
+  else pool = ALL_QUESTIONS.filter(q=>q.disc===activeDisc);
   filtered = shuffle(pool);
   current = 0; score = 0; answered = new Array(filtered.length).fill(null);
   document.getElementById("startScreen").style.display="none";
@@ -506,7 +599,16 @@ function renderQ(){
   document.getElementById("progressBar").style.width = ((current/n)*100)+"%";
   document.getElementById("scoreBadge").textContent = `${score} / ${current}`;
   document.getElementById("qDisc").textContent = DISC_LABELS[q.disc];
-  document.getElementById("qTopic").textContent = q.topic;
+  const topicEl = document.getElementById("qTopic");
+  topicEl.textContent = q.topic;
+  const existing = topicEl.querySelector(".real-badge");
+  if(existing) existing.remove();
+  if(q.real){
+    const badge = document.createElement("span");
+    badge.className = "real-badge";
+    badge.textContent = "Prova real · " + FONTE_LABEL;
+    topicEl.appendChild(badge);
+  }
   document.getElementById("qText").textContent = q.q;
   const fb = document.getElementById("feedback");
   fb.style.display="none"; fb.className="feedback";
