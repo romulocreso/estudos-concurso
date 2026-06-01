@@ -120,12 +120,3 @@
 
   .anim{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
-
-  /* NAV */
-  .sitenav{background:var(--oxblood);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
-  .nav-inner{max-width:1060px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:52px}
-  .nav-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:#f6ecd8;text-decoration:none}
-  .nav-brand em{color:var(--gold-bright);font-style:italic}
-  .nav-links{display:flex;gap:2px}
-  .nav-links a{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,236,216,.7);text-decoration:none;padding:6px 12px;border-radius:4px;transition:all .18s}
-  .nav-links a:hover,.nav-links a.active{background:rgba(246,236,216,.15);color:#f6ecd8}

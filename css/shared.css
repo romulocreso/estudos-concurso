@@ -30,3 +30,12 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   }
   .wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 22px 90px}
+
+/* NAV */
+  .sitenav{background:var(--oxblood);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px var(--shadow)}
+  .nav-inner{max-width:1060px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;height:52px}
+  .nav-brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;color:#f6ecd8;text-decoration:none}
+  .nav-brand em{color:var(--gold-bright);font-style:italic}
+  .nav-links{display:flex;gap:2px}
+  .nav-links a{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,236,216,.7);text-decoration:none;padding:6px 12px;border-radius:4px;transition:all .18s}
+  .nav-links a:hover,.nav-links a.active{background:rgba(246,236,216,.15);color:#f6ecd8}
