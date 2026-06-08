@@ -38,6 +38,8 @@
       <button class="filter-btn" data-disc="real">Questões Reais Auctor</button>
     </div>
     <p class="start-meta" id="startMeta">Serão exibidas <b>66 questões</b> em ordem aleatória.</p>
+    <button class="btn-primary" id="resumeBtn" style="display:none"></button>
+    <p class="resume-meta" id="resumeMeta" style="display:none"></p>
     <button class="btn-primary" id="startBtn">Iniciar simulado</button>
   </div>
 
@@ -52,10 +54,12 @@
       <div class="q-disc-tag" id="qDisc"></div>
       <div class="q-topic" id="qTopic"></div>
       <div class="q-text" id="qText"></div>
+      <button class="listen-btn listen-q" id="listenQ" type="button"><span class="ic">▶</span> Ouvir pergunta</button>
       <div class="opts" id="opts"></div>
       <div class="feedback" id="feedback">
         <div class="fb-title" id="fbTitle"></div>
         <div id="fbText"></div>
+        <button class="listen-btn listen-exp" id="listenExp" type="button"><span class="ic">▶</span> Ouvir explicação completa</button>
       </div>
     </div>
     <div class="quiz-nav">
@@ -70,7 +74,10 @@
     <p class="result-sub" id="rSubtitle"></p>
     <div class="result-grid" id="resultGrid"></div>
     <div class="results-review">
-      <h3>Revisão das questões</h3>
+      <div class="review-head">
+        <h3>Revisão das questões</h3>
+        <button class="listen-btn" id="listenReview" type="button"><span class="ic">▶</span> Ouvir revisão completa</button>
+      </div>
       <div id="reviewList"></div>
     </div>
     <div class="restart-row">
@@ -80,6 +87,7 @@
   </div>
 
 </div>
+<script src="js/tts.js"></script>
 <script src="js/simulado.js"></script>
 </body>
 </html>
